@@ -1,12 +1,10 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
+import events from './modules/events';
+import slider from './modules/slider';
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+    modules: {
+        events,
+        slider
+    },
+});
