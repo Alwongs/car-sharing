@@ -1,12 +1,12 @@
 <template>
-    <div 
-        class="slider-group" 
+    <div  
         :style="{'margin-left': `-${getSlideMargin()}%` }"
+        class="slider-group"
     >
         <div 
-            class="slide" 
             v-for="slide in slider_data" 
             :key="slide.id"
+            class="slide" 
         >
             <div class="slide-container">
                 <h2>{{ slide.title }}</h2>
@@ -81,33 +81,31 @@ export default {
     left: 96px;
     right: 96px;
     height: 100%; 
-    padding-top: 29vh;       
-}
-h2 {
-    font-weight: 500;
-    font-size: 40px;
-    margin-bottom: 8px;
-    color: $white;
-    @media (min-width: $desktop-min) and (max-width: $desktop-max) {
-        font-size: 32px;
+    padding-top: 29vh;  
+    h2 {
+        font-weight: 500;
+        font-size: 40px;
+        margin-bottom: 8px;
+        color: $white;
+        @media (min-width: $desktop-min) and (max-width: $desktop-max) {
+            font-size: 32px;
+        }
     }
-}
-p {
-    font-weight: 500;
-    font-size: 24px;
-    margin-bottom: 32px;
-    color: $grey_light;
-    @media (min-width: $desktop-min) and (max-width: $desktop-max) {
-        font-size: 22px;
+    p {
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 23px;
+        margin-bottom: 32px;
+        color: $grey_light;
+        @media (min-width: $desktop-min) and (max-width: $desktop-max) {
+            font-size: 22px;
+        }
     }
-}
-.btn-details {
-    width: 164px;
-    height: 48px;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 18px;
-    color: $white;
-    cursor: pointer;
+    .btn-details {
+        width: 164px;
+        height: 48px;
+        border-radius: 4px;
+        color: $grey-light;
+    }     
 }
 </style>

@@ -6,16 +6,16 @@
             </span>
             <br> 
             <span class="brand">
-                Evgesha
+                Need for drive
             </span>         
         </h1>
 
         <p class="description">
-            Игрушки ручной работы
+            Поминутная аренда авто твоего города
         </p>
 
         <btn-common
-            :text="'Заказать'"
+            :text="'Забронировать'"
             class="btn-main"
         />
     </main>
@@ -52,6 +52,7 @@ export default {
     .description {
         font-weight: 300;
         font-size: 26px;
+        line-height: 30px;
         color: $grey;
         margin-bottom: 60px;
         @media (max-width: $mobile-max) {
@@ -60,7 +61,6 @@ export default {
             margin-bottom: 32px;           
         }
     } 
-
     .btn-main {
         width: 250px;
         height: 48px;

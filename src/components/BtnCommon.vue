@@ -1,6 +1,6 @@
 <template>
     <button 
-        class="btn"
+        class="btn-common"
     >
         {{ text }}
     </button>
@@ -9,14 +9,14 @@
 <script>
 
 export default {
-    name: 'Btn',
+    name: 'BtnCommon',
     props: [ 'text' ],
 }
 </script>
 
 <style lang="scss" scoped>
 
-    .btn {
+    .btn-common {
         font-weight: 500;
         font-size: 18px;
         cursor: pointer;

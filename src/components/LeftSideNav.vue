@@ -6,7 +6,7 @@
             <li><a>Бензин</a></li>
             <li><a>Обслуживание</a></li>
         </ul>
-        <social-media-group class="border" />
+        <social-media-group />
     </nav>
 </template>
 

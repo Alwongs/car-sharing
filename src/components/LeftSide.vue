@@ -5,14 +5,13 @@
         <btn-lang class="aside-btn" />    
 
         <div 
-            class="menu-wrap"
             :class="{ 'active': isMenuOpened }"
+            class="menu-wrap"
         >
             <div class="menu">
                 <left-side-nav />
             </div>
         </div>
-
     </aside>
 </template>
 
@@ -51,7 +50,7 @@ export default {
     } 
 }
 .aside-btn {
-    z-index: 2;
+    z-index: 4;
     cursor: pointer;
     position: absolute;
     left: 32px;
@@ -70,7 +69,7 @@ export default {
     height: 100%;
     transition: 0.5s;
     transform: translateX(-100%);
-    z-index: 1;
+    z-index: 3;
     &.active {
         transform: translateX(0%);
     }

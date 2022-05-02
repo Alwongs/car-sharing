@@ -1,10 +1,7 @@
 <template>
     <div class="slider-section">
         <div class="wrapper-slider">
-
             <slider-pictures-group />
-
-            <!-- -- footer dots -- -->
             <div class="slider-footer">
                 <div class="dots-group">
                     <div
@@ -16,32 +13,14 @@
                     ></div>
                 </div>
             </div>
-
-            <!-- -- buttons prev-next -- -->
-            <div 
-                class="slider-btn slider-btn-prev" 
-                @click="prevSlide"
-            >
-                <div class="slider-btn-icon">
-                    <img 
-                        :src="require('../assets/img/svg/arrow_prev.svg')" 
-                        alt="Slide" 
-                        class="slider-btn-img"
-                    >
-                </div>
-            </div>
-            <div 
-                class="slider-btn slider-btn-next" 
-                @click="nextSlide"
-            >
-                <div class="slider-btn-icon">
-                    <img 
-                        :src="require('../assets/img/svg/arrow_next.svg')" 
-                        alt="Slide" 
-                        class="slider-btn-img"
-                    >
-                </div>
-            </div>
+            <button 
+                @click="prevSlide"            
+                class="btn-slider btn-slider-prev"
+            ></button>
+            <button 
+                @click="nextSlide"             
+                class="btn-slider btn-slider-next"
+            ></button>         
         </div>
     </div>
 </template>
@@ -109,7 +88,7 @@ export default {
     padding-bottom: 32px;
     display: flex;
     align-items: center;
-    z-index: 3;
+    z-index: 2;
 }
 .dots-group {
     margin: auto;
@@ -128,31 +107,26 @@ export default {
 .selected-slide {
     background-color: $green;
 }
-.slider-btn {
-    cursor: pointer;
+.btn-slider { 
+    z-index: 2;
     position: absolute;
     top: 0;
     width: 64px;
-    height: 100%; 
-    z-index: 2;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: url('../assets/img/svg/arrow_prev.svg') no-repeat center;
     &:hover {
-        background: $bg_slider_button_hover;
+        background-color: $bg-slider-button-hover;
     }
     &-prev {
-        left: 0;           
+        left: 0;     
     }
     &-next {
-        right: 0;           
-    }
-    &-icon {
-        height: 20px;
-        width: 10px;
-        position: absolute;
-        top: 0;
         right: 0;
-        bottom: 0;
-        left: 0;
-        margin: auto;
+        transform: rotate(180deg);      
     }
 }
 </style>
