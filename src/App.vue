@@ -1,16 +1,16 @@
 <template>
     <div class="wrapper">
-        <left-side />
+        <aside-panel />
         <router-view/>
     </div>
 </template>
 
 <script>
-import LeftSide from './components/LeftSide.vue'
+import AsidePanel from './components/AsidePanel.vue'
 
 export default {
     name: 'App',
-    components: { LeftSide }
+    components: { AsidePanel }
 }
 </script>
 

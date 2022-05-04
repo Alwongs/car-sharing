@@ -6,16 +6,16 @@
             <li><a>Бензин</a></li>
             <li><a>Обслуживание</a></li>
         </ul>
-        <social-media-group />
+        <social-media />
     </nav>
 </template>
 
 <script>
-import SocialMediaGroup from './SocialMediaGroup.vue';
+import SocialMedia from './AsidePanelSocialMedia.vue';
 
 export default {
-    name: 'LeftSideNav',
-    components: { SocialMediaGroup },    
+    name: 'AsidePanelNav',
+    components: { SocialMedia },    
 }
 </script>
 

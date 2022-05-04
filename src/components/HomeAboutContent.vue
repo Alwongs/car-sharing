@@ -14,7 +14,7 @@
             Поминутная аренда авто твоего города
         </p>
 
-        <btn-common
+        <app-btn
             :text="'Забронировать'"
             class="btn-main"
         />
@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import BtnCommon from './BtnCommon.vue'
+import AppBtn from './AppBtn.vue'
 
 export default {
     name: 'MainSectionContent',
-    components: { BtnCommon },
+    components: { AppBtn },
 }
 </script>
 

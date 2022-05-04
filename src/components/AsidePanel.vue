@@ -9,16 +9,16 @@
             class="menu-wrap"
         >
             <div class="menu">
-                <left-side-nav />
+                <aside-panel-nav />
             </div>
         </div>
     </aside>
 </template>
 
 <script>
-import BtnMenu from './BtnMenu.vue';
-import BtnLang from './BtnLang.vue';
-import LeftSideNav from './LeftSideNav.vue';
+import BtnMenu from './AsidePanelBtnMenu.vue';
+import BtnLang from './AsidePanelBtnLang.vue';
+import AsidePanelNav from './AsidePanelNav.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -26,7 +26,7 @@ export default {
     components: { 
         BtnMenu,
         BtnLang,
-        LeftSideNav,
+        AsidePanelNav,
     },
     computed: {
         ...mapGetters([

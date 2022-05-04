@@ -12,7 +12,7 @@
 <script>
 
 export default {
-    name: 'MainSectionFooter'
+    name: 'AppFooter'
 }
 </script>
 

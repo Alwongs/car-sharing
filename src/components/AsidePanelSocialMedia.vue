@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: 'SocialMediaGroup'
+    name: 'AsidePanelSocialMedia'
 }
 </script>
 

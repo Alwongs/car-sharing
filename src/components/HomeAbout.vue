@@ -1,31 +1,31 @@
 <template>
-    <div class="main-section">
+    <div class="home-about">
         <div class="container">
-            <main-section-header class="main-section-header" />
-            <main-section-content class="main-section-content" />
-            <main-section-footer class="main-section-footer" />
+            <app-header class="app-header" />
+            <about-content class="about-content" />
+            <app-footer class="app-footer" />
         </div>
     </div>
 </template>
 
 <script>
-import MainSectionHeader from './MainSectionHeader.vue'
-import MainSectionContent from './MainSectionContent.vue'
-import MainSectionFooter from './MainSectionFooter.vue'
+import AppHeader from './AppHeader.vue'
+import AboutContent from './HomeAboutContent.vue'
+import AppFooter from './AppFooter.vue'
 
 export default {
-    name: 'MainSection',
+    name: 'HomeAbout',
     components: {
-        MainSectionHeader,
-        MainSectionFooter,
-        MainSectionContent
+        AppHeader,
+        AppFooter,
+        AboutContent
     }
 }
 </script>
 
 <style lang="scss" scoped>
 
-.main-section {
+.home-about {
     width: 50%;
     @media (min-width: $desktop-min) and (max-width: $desktop-max) {
         width: 57%;
@@ -54,14 +54,14 @@ export default {
         padding: 0 16px;
     }    
      
-    .main-section-header {
+    .app-header {
         flex: 0 0 auto;
         margin-bottom: 19vh;
     }  
-    .main-section-content {
+    .about-content {
         flex: 1 0 auto;
     }  
-    .main-section-footer {
+    .app-footer {
         flex: 0 0 auto;
     }  
 }

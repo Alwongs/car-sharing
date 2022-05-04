@@ -10,7 +10,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'BtnMenu',
+    name: 'AsidePanelBtnMenu',
     computed: {
         ...mapGetters([
             'isMenuOpened'

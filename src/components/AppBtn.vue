@@ -9,7 +9,7 @@
 <script>
 
 export default {
-    name: 'BtnCommon',
+    name: 'AppBtn',
     props: [ 'text' ],
 }
 </script>
@@ -26,6 +26,7 @@ export default {
         @media (max-width: $mobile-max) {
             position: absolute;
             left: 0;
+            border-radius: 0;
         }
     }
 </style>

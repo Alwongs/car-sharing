@@ -1,25 +1,49 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import HomePage from '../views/HomePage.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import HomePage from '../views/HomePage'
+import OrderPage from '../views/OrderPage'
+import TabPlace from '../components/OrderTabPlace'
+import TabModel from '../components/OrderTabModel'
+import TabExtra from '../components/OrderTabExtra'
+import TabTotal from '../components/OrderTabTotal'
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: HomePage
-  },
-  {
-    path: '/order',
-    name: 'order',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/OrderPage.vue')
-  }
+    {
+        path: '/',
+        name: 'home-page',
+        component: HomePage        
+    },
+    {
+        path: '/order',
+        name: 'order',
+        component: OrderPage,
+        children: [
+            {
+                path: 'place',
+                name: 'place',
+                component: TabPlace
+            },
+            {
+                path: 'model',
+                name: 'model',
+                component: TabModel
+            },
+            {
+                path: 'extra',
+                name: 'extra',
+                component: TabExtra
+            },
+            {
+                path: 'total',
+                name: 'total',
+                component: TabTotal
+            },
+        ]
+    }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes
+    history: createWebHistory(process.env.BASE_URL),
+    routes
 })
 
-export default router
+export default router;

@@ -1,7 +1,7 @@
 <template>
     <div class="slider-section">
         <div class="wrapper-slider">
-            <slider-pictures-group />
+            <slider-pictures />
             <div class="slider-footer">
                 <div class="dots-group">
                     <div
@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import SliderPicturesGroup from './SliderPicturesGroup.vue';
+import SliderPictures from './HomeSliderPictures.vue';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-    name: 'SliderSection',
-    components: { SliderPicturesGroup },
+    name: 'HomeSlider',
+    components: { SliderPictures },
     computed: {
         ...mapGetters([ 
             'slider_data',

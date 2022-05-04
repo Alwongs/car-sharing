@@ -13,7 +13,7 @@
                 <p>
                     {{ slide.description }}
                 </p>
-                <btn-common
+                <app-btn
                     :text="'Подробнее'"
                     :style="{ 'background': slide.btn_color }"
                     class="btn-details" 
@@ -29,11 +29,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import BtnCommon from './BtnCommon.vue';
+import AppBtn from './AppBtn.vue';
 
 export default {
-  components: { BtnCommon },
-    name: 'SliderPicturesGroup',
+  components: { AppBtn },
+    name: 'HomeSliderPictures',
     computed: {
         ...mapGetters([ 
             'slider_data',
