@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from '../views/HomePage'
 import OrderPage from '../views/OrderPage'
-import TabPlace from '../components/OrderTabPlace'
+import TabLocation from '../components/OrderTabLocation'
 import TabModel from '../components/OrderTabModel'
 import TabExtra from '../components/OrderTabExtra'
 import TabTotal from '../components/OrderTabTotal'
@@ -18,9 +18,9 @@ const routes = [
         component: OrderPage,
         children: [
             {
-                path: 'place',
-                name: 'place',
-                component: TabPlace
+                path: 'location',
+                name: 'location',
+                component: TabLocation
             },
             {
                 path: 'model',

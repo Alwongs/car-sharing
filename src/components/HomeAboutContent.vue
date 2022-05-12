@@ -17,6 +17,7 @@
         <app-btn
             :text="'Забронировать'"
             class="btn-main"
+            @click="$router.push('/order/location')"
         />
     </main>
 </template>

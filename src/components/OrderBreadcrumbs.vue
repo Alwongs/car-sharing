@@ -1,31 +1,59 @@
 <template>
     <nav>
         <ul>
-            <li class="place active">
-                <a href="#" @click="goTo('place')">Местоположение</a>
+            <li 
+                class="place" 
+                :class="{ active: currentRouteName == 'location', filled: getOrder.location.point.name }"
+                @click="goTo('location')"
+            >
+                <a href="#">Местоположение</a>
             </li>
-            <li class="model">
-                <a href="#" @click="goTo('model')">Модель</a>
+
+            <li 
+                class="model" 
+                :class="{ active: currentRouteName == 'model', disabled: !getOrder.location.point.name }"
+                @click="goTo('model')"
+            >
+                <a href="#">Модель</a>
             </li>
-            <li class="additional">
-                <a href="#" @click="goTo('extra')">Дополнительно</a>
+
+            <li 
+                class="additional" 
+                :class="{ active: currentRouteName == 'extra', disabled: !getOrder.car.name }"               
+                @click="goTo('extra')"
+            >
+                <a href="#">Дополнительно</a>
             </li> 
-            <li class="result">
-                <a href="#" @click="goTo('total')">Итого</a>
+
+            <li 
+                class="result" 
+                :class="{ active: currentRouteName == 'total' }"
+                @click="goTo('total')"
+            >
+                <a href="#">Итого</a>
             </li>
         </ul>
     </nav>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'Breadcrumbs',
+    computed: {
+        ...mapGetters([
+            'getOrder',
+        ]),
+        currentRouteName() {
+            return this.$route.name;
+        }
+    },
     methods: {
         goTo(route) {
             this.$router.push({name: route});
         }
-    }
+    },
 }
 </script>
 
@@ -33,6 +61,10 @@ export default {
 
     ul li {
         display: inline;
+        cursor: pointer;
+        &.disabled {
+            pointer-events: none;
+        }
         @media (max-width: 767px) {
             display: block; 
             margin-bottom: 5px;
@@ -45,8 +77,14 @@ export default {
         text-decoration: none;
         color: $grey;
     }
+    .filled a {
+        color: $black;
+    }
     .active  a {
         color: $green;
+    }
+    .bold a {
+        color: black;
     }
     .place, .model, .additional {
         :after {

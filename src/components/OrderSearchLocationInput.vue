@@ -1,18 +1,18 @@
 <template>
     <div class="location-search">
-        <label for="inputPoint">{{ text }}</label>
-        <div class="city-flex-column">
+        <label for="inputLocation">{{ text }}</label>
+        <div class="location-flex-column">
             <div class="location-search-input">
                 <input 
-                    v-model="name"
+                    v-model="value"
                     type="text" 
-                    id="inputPoint" 
-                    placeholder="Начните вводить пункт ..."
+                    :id="'inputLocation'"
+                    :placeholder="placeholder"
                     class="input-point"
                     @click="openList"
                 >
                 <button 
-                    v-if="name"
+                    v-if="modelValue"
                     @click="clearItem"
                 ></button>                
             </div>
@@ -34,30 +34,27 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex';
 
 export default {
-    name: 'OrderSearchPlaceInput',
-    props: [ 'text', 'items' ],
+    name: 'OrderSearchLocationInput',
+    props: [ 'text', 'items', 'modelValue', 'placeholder' ],
+    emits: ['update:modelValue'],
     data() {
         return {
             isListOpen: false,
-            name: ''
+        }
+    },
+    computed: {
+        value: {
+            get() {
+                return this.modelValue
+            },
+            set(value) {
+                this.$emit('update:modelValue', value)
+            }
         }
     },
     methods: {
-        ...mapMutations([
-           'ADD_CITY_TO_ORDER',
-           'ADD_POINT_TO_ORDER',
-           'CLEAR_CITY_FROM_STEP',
-           'CLEAR_POINT_FROM_STEP',
-           'ACTIVATE_BTN',
-           'DISACTIVATE_BTN',
-        ]),
-        ...mapActions([
-           'get_cities_from_api',
-           'get_points_from_api',
-        ]),
         openList() {
             this.isListOpen = !this.isListOpen;
             this.$emit('openList');
@@ -69,7 +66,7 @@ export default {
         },
         clearItem() {
             this.name = '';
-            //this.$emit('clearItem');
+            this.$emit('clearItem');
             this.isListOpen = false;              
         },
     },    
@@ -103,7 +100,7 @@ label {
         margin-bottom: 20px;
     }  
 }
-.city-flex-column ul {
+.location-flex-column ul {
     background: $white;
     position: absolute;
     border: 1px solid $grey_light;
@@ -153,5 +150,4 @@ label {
         min-width: 100%;
     }             
 }
-
 </style>

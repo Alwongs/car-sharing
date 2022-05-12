@@ -1,16 +1,16 @@
 import { createStore } from "vuex";
 import events from './modules/events.js';
 import slider from './modules/slider.js';
-import cities from './modules/cities.js';
-import points from './modules/points.js';
-import steps from './modules/steps.js';
+import location from './modules/location.js';
+import cars from './modules/cars.js';
+import order from './modules/order.js';
 
 export default createStore({
     modules: {
         events,
         slider,
-        cities,
-        points,
-        steps
+        location,
+        cars,
+        order
     },
 });

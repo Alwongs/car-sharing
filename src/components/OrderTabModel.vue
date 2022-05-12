@@ -1,145 +1,172 @@
 <template>
     <div class="tab-model">
-        <div class="car-classes">
-            <div class="car-class">
-                <div class="circle checked"></div>
+        <div class="category-group">
+            <div 
+                class="category"
+                @click="showAllCars"
+            >
+                <div 
+                    class="circle"
+                    :class="{ 'checked': checked == 'all' }"
+                ></div>
                 <div class="label">Все модели</div>       
             </div>
-            <div class="car-class">
-                <div class="circle"></div>
-                <div class="label">Эконом</div>
-            </div>
-            <div class="car-class">
-                <div class="circle"></div>
-                <div class="label">Премиум</div>
-            </div>
-        </div>
-        <div class="car-cards">
 
             <div 
-                class="car-card"  
-                v-for="(n, index) in 25" 
-                :key="index"
+                v-for="category in getCategories" 
+                :key="category.id"
+                class="category"
+                @click="showFilteredCars(category.id)"
             >
-                <div class="car-title">ELANTRA {{ n }}</div>
-                <div class="car-price">12000 - 25000 Р</div>
-                <div class="car-img">
-                    <img :src="require('../assets/img/png/car.png')" alt="car-pic">
-                </div>
+                <div 
+                    class="circle"
+                    :class="{ 'checked': checked == category.id }"
+                ></div>
+                <div class="label">{{ category.name }}</div>
             </div>
         </div>
+
+        <div class="car-group">
+            <model-card 
+                v-for="car in getCars"
+                :key="car.id"
+                :car="car"
+                :class="{'selected': selectedId == car.id}"
+                class="car-item"
+                @click="selectCar(car)"
+            />
+        </div>      
     </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import ModelCard from './OrderTabModelCard.vue';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
-    export default {
-        name: 'OrderTabModel',
+export default {
+    name: 'OrderTabModel',
+    components: { ModelCard },
+    data() {
+        return {
+            checked: 'all',
+            selectedId: this.$store.getters.getOrder.car.id || null
+        }
+    },
+    computed: {
+        ...mapGetters([
+            'getOrder',
+            'getCars',
+            'getCategories'
+        ]),
+    },
 
-        methods: {
-            ...mapMutations([
-                'ACTIVATE_BTN',
-                'DISACTIVATE_BTN',
-            ]),
+    updated() {
+        if (this.selectedId) {
+            this.ACTIVATE_BTN();
+        } else {
+            this.DISACTIVATE_BTN();            
+        }
+    },
+
+    methods: {
+        ...mapMutations([
+            'ACTIVATE_BTN',
+            'DISACTIVATE_BTN',
+            'ADD_CAR_TO_ORDER'
+        ]),
+        ...mapActions([
+            'get_cars_from_api',
+            'get_categories_from_api',
+            'filter_cars_by_category',
+        ]), 
+
+        showAllCars() {
+            this.checked = 'all';
+            this.get_cars_from_api();
         },
-        mounted() {
-            this.DISACTIVATE_BTN();       
+        showFilteredCars(id) {
+            this.checked = id;
+            this.get_cars_from_api(id);
         },
-    }
+        selectCar(car) {
+            this.selectedId = car.id;
+            this.ADD_CAR_TO_ORDER(car);
+        }
+    },
+    mounted() {
+        this.get_categories_from_api();
+        this.get_cars_from_api();
+        this.DISACTIVATE_BTN();       
+    },
+}
 </script>
 
 <style lang="scss" scoped>
 
-    .car-classes {
-        display: flex;
-        margin-bottom: 48px;
-        .car-class {
-            display: flex;  
-            align-items: center;
-            margin-right: 16px;          
-        }
-        .circle {
-            border: 1px solid #999999;
-            border-radius: 50%;
-            width: 12px;
-            height: 12px;
-            margin-right: 8px;
-            &.checked {
-                border: 3px solid #0EC261;
-            }
-        }
-        .label {
-            font-family: 'Roboto-light';
-            font-style: normal;
-            font-weight: 300;
-            font-size: 14px;
-            line-height: 16px;
-            color: #999999;
+.category-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    .category {
+        display: flex;  
+        align-items: center;
+        margin-right: 16px;
+        cursor: pointer;          
+    }
+    .circle {
+        border: 1px solid $grey;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+        &.checked {
+            border: 3px solid $green;
         }
     }
-
-    .car-cards {
-        display: flex;
-        align-content: flex-start;
-        width: 736px;
-        height: calc(100vh - 128px - 96px);
-        flex-wrap: wrap;
-        overflow-y: auto;
-        @media (min-width: 1024px) and (max-width: 1439px) {
-            width: 100%; 
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-            width: 100%; 
-        }
-        @media (max-width: 767px) {
-            width: 100%; 
-        }
-    }
-    .car-card {
-        border: 1px solid #EEEEEE;
-        max-width: 50%;
-        flex-grow: 1;
+    .label {
         font-family: 'Roboto-light';
         font-style: normal;
-        font-weight: 400;
-        height: auto;
-        .car-title {
-            margin: 16px 16px 0 16px;
-            font-size: 18px;
-            line-height: 21px;
-            color: #121212;        
-        }
-        .car-price {
-            margin: 0 16px 36px 16px;   
-            font-size: 14px;
-            line-height: 16px;
-            color: #999999;            
-        }
-        @media (min-width: 1024px) and (max-width: 1439px) {
-            width: 50%; 
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-            min-width: 100%;
-        }
-        @media (max-width: 767px) {
-            min-width: 100%; 
-        }
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 16px;
+        color: $grey;
     }
-    .car-img {
-        text-align: right;
-    }
-    img {
-        margin: 0 16px 16px 0;
-        @media (min-width: 1024px) and (max-width: 1439px) {
-            max-width: 100%; 
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-            max-width: 100%; 
-        }
-        @media (max-width: 767px) {
-            max-width: 100%; 
-        }
-    }
+}
 
+.car-group{
+    display: flex;
+    align-content: flex-start;
+    width: 736px;
+    height: calc(100vh - 128px - 96px);
+    flex-wrap: wrap;
+    overflow-y: auto;
+    @media (min-width: $desktop-min) and (max-width: $desktop-max) {
+        width: 100%; 
+    }
+    @media (min-width: $tablet-min) and (max-width: $tablet-max) {
+        width: 100%; 
+    }
+    @media (max-width: $mobile-max) {
+        width: 100%; 
+    }
+}
+.car-item {
+    border: 1px solid #EEEEEE;
+    max-width: 50%;
+    flex-grow: 1;
+    height: auto; 
+    cursor: pointer;
+    @media (min-width: $desktop-min) and (max-width: $desktop-max) {
+        width: 50%; 
+    }
+    @media (min-width: $tablet-min) and (max-width: $tablet-max) {
+        min-width: 100%;
+    }
+    @media (max-width: $mobile-max) {
+        min-width: 100%; 
+    }  
+    &.selected {
+        border: 2px solid $green;
+    }     
+}
 </style>

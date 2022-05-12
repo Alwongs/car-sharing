@@ -4,17 +4,28 @@
         
         <ul class="option-list">
             <li 
-                v-if="getSteps.place.city.name" 
+                v-if="getOrder.location.city.name" 
                 class="option-item"
             >
                 <div class="option-name">
                     Пункт назначения 
                 </div>
                 <div class="option-value">
-                    <span>{{ getSteps.place.city.name }},</span>
-                    <span>{{ getSteps.place.point.name }}</span>
+                    <span>{{ getOrder.location.city.name }},</span>
+                    <span>{{ getOrder.location.point.name }}</span>
                 </div>
-            </li>      
+            </li> 
+            <li 
+                v-if="getOrder.car.name" 
+                class="option-item"
+            >
+                <div class="option-name">
+                    Модель 
+                </div>
+                <div class="option-value">
+                    <span>{{ getOrder.car.name }}</span>
+                </div>
+            </li>  
         </ul>
 
         <div class="price">
@@ -48,12 +59,11 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'getSteps',
+            'getOrder',
             'getIsActiveBtn',
         ]),
         getNextTab() {
-            const routeName = this.$route.name;
-            return this.setNextTab(routeName);
+            return this.setNextTab(this.$route.name);
         }
     },
     methods: {
@@ -65,7 +75,7 @@ export default {
         setNextTab(currentRouteName) {
             let nextTab = {};
             switch (currentRouteName) {
-                case 'place':
+                case 'location':
                     nextTab = {
                         nextRouteName: 'model',
                         buttonText: 'Выбрать модель'

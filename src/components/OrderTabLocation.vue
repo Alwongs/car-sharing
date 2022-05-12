@@ -1,25 +1,25 @@
 <template>
     <div>
-        <search-place class="order-search-place" />
+        <search-location class="order-search-location" />
         <p>Выбрать на карте:</p>
         <img :src="require('../assets/img/png/map.png')" alt="карта">
     </div>
 </template>
 
 <script>
-    import SearchPlace from './OrderSearchPlace.vue'
+    import SearchLocation from './OrderSearchLocation.vue'
 
     export default {
-        name: 'OrderTabPlace',
+        name: 'OrderTabLocation',
         components: {        
-            SearchPlace,
+            SearchLocation,
         }
     }
 </script>
 
 <style lang="scss" scoped>
 
-    .order-search-place {
+    .order-search-location {
         max-width: 323px;
         margin-bottom: 45px;   
     }

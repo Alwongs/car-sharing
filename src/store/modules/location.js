@@ -2,33 +2,35 @@ import apiServices from "../../services/apiServices";
 
 export default {
     getters: {
+        getCities(state) {
+            return state.cities;
+        },
         getPoints(state) {
             return state.points;
-        },
-        /*
-        getPoint(state) {
-            return state.point;
-        }
-        */
+        },        
     },
     state: {
-        points: [],
-        //point: {}
+        cities: [],
+        points: [],        
     },
     mutations: {
+        UPDATE_CITIES(state, cities) {
+            state.cities = cities;
+        },
         UPDATE_POINTS(state, points) {
             state.points = points;
-        },
-        /*
-        UPDATE_POINT(state, point) {
-            state.point = point;
-        },
-        CLEAR_POINT(state) {
-            state.point = {};
-        },
-        */
+        },        
     },
     actions: {
+        get_cities_from_api({commit}) {     
+            apiServices.getCities()
+            .then((response) => {
+                commit('UPDATE_CITIES', response.data.data)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+        },
         get_points_from_api({commit}, id) {     
             apiServices.getPoints()
             .then((response) => {
@@ -43,6 +45,6 @@ export default {
             .catch(error => {
                 console.error(error)
             })
-        }
+        }        
     }
 }
