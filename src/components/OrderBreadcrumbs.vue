@@ -3,7 +3,10 @@
         <ul>
             <li 
                 class="place" 
-                :class="{ active: currentRouteName == 'location', filled: getOrder.location.point.name }"
+                :class="{ 
+                    active: currentRouteName == 'location',
+                    filled: getOrder.location.point.name 
+                }"
                 @click="goTo('location')"
             >
                 <a href="#">Местоположение</a>
@@ -11,7 +14,11 @@
 
             <li 
                 class="model" 
-                :class="{ active: currentRouteName == 'model', disabled: !getOrder.location.point.name }"
+                :class="{ 
+                    active: currentRouteName == 'model',
+                    filled: getOrder.car.name, 
+                    disabled: !getOrder.location.point.name 
+                }"
                 @click="goTo('model')"
             >
                 <a href="#">Модель</a>
@@ -19,7 +26,10 @@
 
             <li 
                 class="additional" 
-                :class="{ active: currentRouteName == 'extra', disabled: !getOrder.car.name }"               
+                :class="{ 
+                    active: currentRouteName == 'extra', 
+                    disabled: !getOrder.car.name 
+                }"               
                 @click="goTo('extra')"
             >
                 <a href="#">Дополнительно</a>

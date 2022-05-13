@@ -22,7 +22,7 @@ export default {
         },       
     },
     actions: {
-        get_cars_from_api({commit, dispatch}, id) {     
+        get_cars_from_api({commit, dispatch}, categoryId) {     
             apiServices.getCars()
             .then((response) => {
                 commit('UPDATE_CARS', response.data.data)
@@ -31,7 +31,7 @@ export default {
                 console.error(error)
             })
             .finally(() => {
-                dispatch('filter_cars_by_category', id)
+                dispatch('filter_cars_by_category', categoryId)
             })
         },     
         get_categories_from_api({commit}) {     
@@ -43,10 +43,10 @@ export default {
                 console.error(error)
             })
         }, 
-        filter_cars_by_category({getters, commit}, id) {
-            if(id) {
+        filter_cars_by_category({getters, commit}, categoryId) {
+            if(categoryId) {
                 let newArray = getters.getCars.filter((car) => {
-                    if(car.categoryId && car.categoryId.id == id) {
+                    if(car.categoryId && car.categoryId.id == categoryId) {
                         return car;
                     }
                 });

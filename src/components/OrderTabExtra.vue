@@ -1,16 +1,16 @@
 <template>
     <div class="tab-extra">
         <p>Цвет</p>
-        <div class="car-colors">
-            <div class="car-color checked">
+        <div class="colors">
+            <div class="color checked">
                 <div class="circle"></div>
                 <div class="label">Любой</div>       
             </div>
-            <div class="car-color">
+            <div class="color">
                 <div class="circle"></div>
                 <div class="label">Красный</div>
             </div>
-            <div class="car-color">
+            <div class="color">
                 <div class="circle"></div>
                 <div class="label">Голубой</div>
             </div>
@@ -19,17 +19,21 @@
         <p>Дата аренды</p>
         <search-date  class="mb-32"/>
 
+
         <p>Тариф</p>
-        <div class="payment-types mb-32">
-            <div class="payment-type mb-8">
+
+        <div class="rates mb-32">
+            <div 
+                v-for="rate in getRates"
+                :key="rate.id"
+                :class="{ checked: false }"
+                class="rate mb-8"
+            >
                 <div class="circle"></div>
-                <div class="label">Поминутно, 7Р/сутки</div>       
-            </div>
-            <div class="payment-type checked">
-                <div class="circle"></div>
-                <div class="label">На сутки, 1999Р/сутки</div>
+                <div class="label">{{ rate.rateTypeId.name }}, {{ rate.price }}Р/{{ rate.rateTypeId.unit }}</div>
             </div>
         </div>
+
 
         <p>Доп услуги</p>
         <ul>
@@ -49,98 +53,111 @@
                 <label for="service3">Правый руль, 600р</label>
             </li>
         </ul>        
-        
     </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex';
+
 import SearchDate from './OrderSearchDate.vue'
 
     export default {
         name: 'OrderTabExtra',
+        computed: {
+            ...mapGetters([
+                'getRates',
+            ]),
+        },        
         components: {
             SearchDate
+        },
+        methods: {
+            ...mapMutations([
+                'ACTIVATE_BTN',
+                'DISACTIVATE_BTN',
+                'ADD_CAR_TO_ORDER'
+            ]),
+            ...mapActions([
+                'get_rates_from_api',
+            ]), 
+        },
+        mounted() {
+            this.get_rates_from_api()
         }
     }
 </script>
 
 <style lang="scss" scoped>
 
-    p {
-        font-family: 'Roboto-light';
-        font-size: 14px;
-        line-height: 16px;
-        color: #121212;
-        margin-bottom: 16px;
+p {
+    font-size: 14px;
+    color: #121212;
+    margin-bottom: 16px;
+}
+.label {
+    font-size: 14px;
+    font-weight: 300;
+    color: #999999;
+}
+.circle {
+    border: 1px solid #999999;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+}
+.colors {
+    display: flex;
+    margin-bottom: 32px;
+    .color {
+        display: flex;  
+        align-items: center;
+        margin-right: 16px;
     }
-    .label {
+}
+.rate {
+    display: flex;
+    align-items: center;
+}
+.color, .rate {
+    &.checked {
+        .circle {
+            border: 3px solid #0EC261;
+        } 
+        .label {
+            color: #121212;                    
+        }              
+    }
+}
+.service {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    .checkbox {
+        border: 1px solid #999999;
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;       
+    }  
+    label {
         font-family: 'Roboto-light';
-        font-style: normal;
-        font-weight: 300;
         font-size: 14px;
         line-height: 16px;
         color: #999999;
     }
-    .circle {
-        border: 1px solid #999999;
-        border-radius: 50%;
-        width: 12px;
-        height: 12px;
-        margin-right: 8px;
-    }
-    .car-colors {
-        display: flex;
-        margin-bottom: 32px;
-        .car-color {
-            display: flex;  
-            align-items: center;
-            margin-right: 16px;
-        }
-    }
-    .payment-type {
-        display: flex;
-        align-items: center;
-    }
-    .car-color, .payment-type {
-        &.checked {
-            .circle {
-                border: 3px solid #0EC261;
-            } 
-            .label {
-                color: #121212;                    
-            }              
-        }
-    }
-    .service {
-        display: flex;
-        align-items: center;
-        margin-bottom: 8px;
+    &.checked {
         .checkbox {
-            border: 1px solid #999999;
-            width: 12px;
-            height: 12px;
-            margin-right: 8px;       
-        }  
-        label {
-            font-family: 'Roboto-light';
-            font-size: 14px;
-            line-height: 16px;
-            color: #999999;
+            border: 1px solid #0EC261;
         }
-        &.checked {
-            .checkbox {
-                border: 1px solid #0EC261;
-            }
-            .tick {
-                content: '';
-                background-image: url('../assets/img/svg/tick.svg');
-                width: 13px;
-                height: 10px;
-            }
-            label {
-                color: #121212;
-            }
+        .tick {
+            content: '';
+            background-image: url('../assets/img/svg/tick.svg');
+            width: 13px;
+            height: 10px;
+        }
+        label {
+            color: #121212;
         }
     }
-
+}
 </style>

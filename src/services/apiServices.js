@@ -5,6 +5,7 @@ const url = {
     POINT: "/db/point",
     CAR: "/db/car",
     CATEGORIES: "/db/category",
+    RATES: "/db/rate",
 };
 
 export default {
@@ -19,5 +20,8 @@ export default {
     },
     getCategories() {
         return axiosConfig.get(url.CATEGORIES);
+    },
+    getRates() {
+        return axiosConfig.get(url.RATES);
     },
 };
