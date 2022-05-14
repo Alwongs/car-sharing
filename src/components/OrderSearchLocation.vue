@@ -33,8 +33,8 @@ export default {
     components: { LocationInput },
     data() {
         return {
-            city: this.$store.getters.getOrder.location.city || {},
-            point: this.$store.getters.getOrder.location.point || {}
+            city: this.$store.getters.getOrder.city || {},
+            point: this.$store.getters.getOrder.point || {}
         }
     },
     computed: {
@@ -64,6 +64,7 @@ export default {
            'get_cities_from_api',
            'get_points_from_api',
         ]),
+        
         manageBtn() {
             if (this.city.name && this.point.name) {
                 this.ACTIVATE_BTN();

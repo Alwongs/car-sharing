@@ -3,7 +3,7 @@
         <div class="category-group">
             <div 
                 class="category"
-                @click="showAllCars"
+                @click="showAllModels"
             >
                 <div 
                     class="circle"
@@ -28,12 +28,12 @@
 
         <div class="car-group">
             <model-card 
-                v-for="car in getCars"
-                :key="car.id"
-                :car="car"
-                :class="{'selected': selectedId == car.id}"
+                v-for="model in getModels"
+                :key="model.id"
+                :model="model"
+                :class="{'selected': selectedModelId == model.id}"
                 class="car-item"
-                @click="selectCar(car)"
+                @click="selectModel(model)"
             />
         </div>      
     </div>
@@ -49,54 +49,58 @@ export default {
     data() {
         return {
             checked: 'all',
-            selectedId: this.$store.getters.getOrder.car.id || null
+            selectedModelId: this.$store.getters.getOrder.model.id || null
         }
     },
     computed: {
         ...mapGetters([
             'getOrder',
-            'getCars',
+            'getModels',
             'getCategories'
         ]),
     },
 
     updated() {
-        if (this.selectedId) {
-            this.ACTIVATE_BTN();
-        } else {
-            this.DISACTIVATE_BTN();            
-        }
+        this.manageBtn();
+    },
+    created() {
+        this.manageBtn();
     },
 
     methods: {
         ...mapMutations([
             'ACTIVATE_BTN',
             'DISACTIVATE_BTN',
-            'ADD_CAR_TO_ORDER'
+            'ADD_MODEL_TO_ORDER'
         ]),
         ...mapActions([
-            'get_cars_from_api',
+            'get_models_from_api',
             'get_categories_from_api',
-            'filter_cars_by_category',
         ]), 
+        manageBtn() {
+            if (this.selectedModelId) {
+                this.ACTIVATE_BTN();
+            } else {
+                this.DISACTIVATE_BTN();            
+            }            
+        },        
 
-        showAllCars() {
+        showAllModels() {
             this.checked = 'all';
-            this.get_cars_from_api();
+            this.get_models_from_api();
         },
-        showFilteredCars(id) {
+        showFilteredModels(id) {
             this.checked = id;
-            this.get_cars_from_api(id);
+            this.get_models_from_api(id);
         },
-        selectCar(car) {
-            this.selectedId = car.id;
-            this.ADD_CAR_TO_ORDER(car);
+        selectModel(model) {
+            this.selectedModelId = model.id;
+            this.ADD_MODEL_TO_ORDER(model);
         }
     },
     mounted() {
         this.get_categories_from_api();
-        this.get_cars_from_api();
-        this.DISACTIVATE_BTN();       
+        this.get_models_from_api();      
     },
 }
 </script>

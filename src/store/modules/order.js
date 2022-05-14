@@ -4,43 +4,49 @@ export default {
             return state.order;
         },
         getIsActiveBtn(state) {
-            return state.isActivBtn;
+            return state.isActiveBtn;
         }
     },
     state: {
         order: {
-            location: {
-                city: {},
-                point: {},
-            },
-            car: {},
+            city: {},
+            point: {},
+            model: {},
+            rate: {},
+            color: {},
         },
-        isActivBtn: false,
+        isActiveBtn: false,
     },
     mutations: {
         ADD_CITY_TO_ORDER(state, city) {
-            state.order.location.city = city;
+            state.order.city = city;
         },
         ADD_POINT_TO_ORDER(state, point) {
-            state.order.location.point = point;
+            state.order.point = point;
         },
-        ADD_CAR_TO_ORDER(state, car) {
-            state.order.car = car;
+        ADD_MODEL_TO_ORDER(state, model) {
+            state.order.model = model;
+        },
+        ADD_RATE_TO_ORDER(state, rate) {
+            state.order.rate = rate;
+        },
+        ADD_COLOR_TO_ORDER(state, color) {
+            state.order.color = color;
         },
 
         
         CLEAR_CITY_FROM_ORDER(state) {
-            state.order.location.city = {};            
+            state.order.city = {};            
         },
         CLEAR_POINT_FROM_ORDER(state) {
-            state.order.location.point = {};            
+            state.order.point = {};            
         },
 
         ACTIVATE_BTN(state) {
-            state.isActivBtn = true;
+            state.isActiveBtn = true;
         },
         DISACTIVATE_BTN(state) {
-            state.isActivBtn = false;
+            state.isActiveBtn = false;
         }
     },
 }

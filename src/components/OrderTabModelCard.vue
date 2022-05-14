@@ -1,11 +1,11 @@
 <template>
     <div class="card">
-        <h3 class="title">{{ car.name }}</h3>
-        <p class="price">{{ car.priceMin }} - {{ car.priceMax }} руб.</p>
+        <h3 class="title">{{ model.name }}</h3>
+        <p class="price">{{ model.priceMin }} - {{ model.priceMax }} руб.</p>
         <img
-            :src="car.thumbnail.path"
-            :alt="car.thumbnail.originalname"
-            class="car-picture"
+            :src="model.thumbnail.path"
+            :alt="model.thumbnail.originalname"
+            class="model-picture"
         />
     </div>    
 </template>
@@ -14,7 +14,7 @@
 
 export default {
     name: 'OrderTabModelCard',
-    props: [ 'car' ]
+    props: [ 'model' ]
 }
 </script>
 
@@ -35,7 +35,7 @@ export default {
     font-size: 14px;
     color: $grey;            
 }
-.car-picture {
+.model-picture {
     align-self: flex-end;
     width: 256px;
     @media (min-width: $desktop-min) and (max-width: $desktop-max) {

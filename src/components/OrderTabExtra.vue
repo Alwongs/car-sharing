@@ -2,17 +2,15 @@
     <div class="tab-extra">
         <p>Цвет</p>
         <div class="colors">
-            <div class="color checked">
+            <div 
+                v-for="color in colors"
+                :key="color.id"
+                :class="{ checked: selectedColorId == color.id }"
+                class="color"
+                @click="selectColor(color)"
+            >
                 <div class="circle"></div>
-                <div class="label">Любой</div>       
-            </div>
-            <div class="color">
-                <div class="circle"></div>
-                <div class="label">Красный</div>
-            </div>
-            <div class="color">
-                <div class="circle"></div>
-                <div class="label">Голубой</div>
+                <div class="label">{{ color.name }}</div>       
             </div>
         </div>
 
@@ -21,15 +19,17 @@
 
 
         <p>Тариф</p>
-
         <div class="rates mb-32">
             <div 
                 v-for="rate in getRates"
-                :key="rate.id"
-                :class="{ checked: false }"
+                :key="rate.id" 
+                :class="{ checked: selectedRateId == rate.id }"
                 class="rate mb-8"
+                @click="selectRate(rate)"
             >
-                <div class="circle"></div>
+                <div
+                    class="circle"
+                ></div>
                 <div class="label">{{ rate.rateTypeId.name }}, {{ rate.price }}Р/{{ rate.rateTypeId.unit }}</div>
             </div>
         </div>
@@ -62,28 +62,72 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 import SearchDate from './OrderSearchDate.vue'
 
     export default {
-        name: 'OrderTabExtra',
+        name: 'OrderTabExtra',       
+        components: { SearchDate },
+        data() {
+            return {
+                selectedRateId:  this.$store.getters.getOrder.rate.id || null,
+                selectedColorId:  this.$store.getters.getOrder.color.id || null,
+                colors: [
+                    {
+                        id: 1,
+                        name: 'Любой',
+                    },
+                    {
+                        id: 2,
+                        name: 'Красный',
+                    },
+                    {
+                        id: 3,
+                        name: 'Голубой',
+                    },
+                ]
+            }
+        },
         computed: {
             ...mapGetters([
                 'getRates',
             ]),
-        },        
-        components: {
-            SearchDate
+        }, 
+
+        created() {
+            this.manageBtn();
+        }, 
+        mounted() {
+            this.get_rates_from_api()
         },
+        updated() {
+            this.manageBtn();
+        },
+
         methods: {
             ...mapMutations([
                 'ACTIVATE_BTN',
                 'DISACTIVATE_BTN',
-                'ADD_CAR_TO_ORDER'
+                'ADD_RATE_TO_ORDER',
+                'ADD_COLOR_TO_ORDER'
             ]),
             ...mapActions([
                 'get_rates_from_api',
-            ]), 
+            ]),
+
+            selectRate(rate) {
+                this.selectedRateId = rate.id;
+                this.ADD_RATE_TO_ORDER(rate);                
+            },
+            selectColor(color) {
+                this.selectedColorId = color.id;
+                this.ADD_COLOR_TO_ORDER(color);                
+            },
+            
+            manageBtn() {
+                if (this.selectedCarId) {
+                    this.ACTIVATE_BTN();
+                } else {
+                    this.DISACTIVATE_BTN();            
+                }            
+            }, 
         },
-        mounted() {
-            this.get_rates_from_api()
-        }
     }
 </script>
 
@@ -113,11 +157,13 @@ p {
         display: flex;  
         align-items: center;
         margin-right: 16px;
+        cursor: pointer;
     }
 }
 .rate {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .color, .rate {
     &.checked {

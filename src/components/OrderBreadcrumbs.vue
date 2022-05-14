@@ -5,7 +5,7 @@
                 class="place" 
                 :class="{ 
                     active: currentRouteName == 'location',
-                    filled: getOrder.location.point.name 
+                    filled: getOrder.point.name 
                 }"
                 @click="goTo('location')"
             >
@@ -16,8 +16,8 @@
                 class="model" 
                 :class="{ 
                     active: currentRouteName == 'model',
-                    filled: getOrder.car.name, 
-                    disabled: !getOrder.location.point.name 
+                    filled: getOrder.model.name, 
+                    disabled: !getOrder.point.name 
                 }"
                 @click="goTo('model')"
             >
@@ -28,7 +28,7 @@
                 class="additional" 
                 :class="{ 
                     active: currentRouteName == 'extra', 
-                    disabled: !getOrder.car.name 
+                    disabled: !getOrder.model.name 
                 }"               
                 @click="goTo('extra')"
             >

@@ -2,36 +2,36 @@ import apiServices from "../../services/apiServices";
 
 export default {
     getters: {
-        getCars(state) {
-            return state.cars;
+        getModels(state) {
+            return state.models;
         },      
         getCategories(state) {
             return state.categories;
         },      
     },
     state: {
-        cars: [], 
+        models: [], 
         categories: [] ,     
     },
     mutations: {
-        UPDATE_CARS(state, cars) {
-            state.cars = cars;
+        UPDATE_MODELS(state, models) {
+            state.models = models;
         },       
         UPDATE_CATEGORIES(state, categories) {
             state.categories = categories;
         },       
     },
     actions: {
-        get_cars_from_api({commit, dispatch}, categoryId) {     
+        get_models_from_api({commit, dispatch}, categoryId) {     
             apiServices.getCars()
             .then((response) => {
-                commit('UPDATE_CARS', response.data.data)
+                commit('UPDATE_MODELS', response.data.data)
             })
             .catch(error => {
                 console.error(error)
             })
             .finally(() => {
-                dispatch('filter_cars_by_category', categoryId)
+                dispatch('filter_models_by_category', categoryId)
             })
         },     
         get_categories_from_api({commit}) {     
@@ -43,14 +43,14 @@ export default {
                 console.error(error)
             })
         }, 
-        filter_cars_by_category({getters, commit}, categoryId) {
+        filter_models_by_category({getters, commit}, categoryId) {
             if(categoryId) {
-                let newArray = getters.getCars.filter((car) => {
-                    if(car.categoryId && car.categoryId.id == categoryId) {
-                        return car;
+                let newArray = getters.getModels.filter((model) => {
+                    if(model.categoryId && model.categoryId.id == categoryId) {
+                        return model;
                     }
                 });
-                commit('UPDATE_CARS', newArray);
+                commit('UPDATE_MODELS', newArray);
             }
         }
     }

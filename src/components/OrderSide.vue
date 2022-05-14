@@ -4,26 +4,51 @@
         
         <ul class="option-list">
             <li 
-                v-if="getOrder.location.city.name" 
+                v-if="getOrder.city.name" 
                 class="option-item"
             >
                 <div class="option-name">
                     Пункт назначения 
                 </div>
                 <div class="option-value">
-                    <span>{{ getOrder.location.city.name }},</span>
-                    <span>{{ getOrder.location.point.name }}</span>
+                    <span>{{ getOrder.city.name }},</span>
+                    <span>{{ getOrder.point.name }}</span>
                 </div>
             </li> 
+
             <li 
-                v-if="getOrder.car.name" 
+                v-if="getOrder.model.name" 
                 class="option-item"
             >
                 <div class="option-name">
                     Модель 
                 </div>
                 <div class="option-value">
-                    <span>{{ getOrder.car.name }}</span>
+                    <span>{{ getOrder.model.name }}</span>
+                </div>
+            </li> 
+
+            <li 
+                v-if="getOrder.color.id" 
+                class="option-item"
+            >
+                <div class="option-name">
+                    Цвет
+                </div>
+                <div class="option-value">
+                    <span>{{ getOrder.color.name }}</span>
+                </div>
+            </li>  
+
+            <li 
+                v-if="getOrder.rate.id" 
+                class="option-item"
+            >
+                <div class="option-name">
+                    Тариф
+                </div>
+                <div class="option-value">
+                    <span>{{ getOrder.rate.rateTypeId.name }}</span>
                 </div>
             </li>  
         </ul>
@@ -48,12 +73,9 @@ import { mapGetters } from 'vuex';
 
 export default {
     name: 'OrderSide',
-    components: {
-        AppBtn
-    },
+    components: { AppBtn },
     data() {
         return {
-            isActiveBtn: false,
             nextTab: {}
         }
     },
