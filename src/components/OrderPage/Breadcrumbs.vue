@@ -100,7 +100,7 @@ export default {
         :after {
             display: inline-block;
             content: '';
-            background-image: url('../assets/img/svg/breadcrumbs.svg');
+            background-image: url('../../assets/img/svg/breadcrumbs.svg');
             height: 8px;
             width: 6px;
             background-size: contain;

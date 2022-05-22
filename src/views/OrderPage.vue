@@ -3,7 +3,7 @@
         <app-header class="order-page__header" />
 
         <div class="breadcrumbs-panel">
-            <order-breadcrumbs class="breadcrumbs" />
+            <bread-crumbs class="breadcrumbs" />
         </div>
 
         <div class="main">
@@ -19,15 +19,15 @@
 </template>
 
 <script>
-    import AppHeader from '../components/AppHeader.vue'
-    import OrderBreadcrumbs from '../components/OrderBreadcrumbs.vue'
-    import OrderSide from '../components/OrderSide.vue'
+    import AppHeader from '@/components/Common/AppHeader.vue'
+    import BreadCrumbs from '@/components/OrderPage/Breadcrumbs.vue'
+    import OrderSide from '@/components/OrderPage/OrderSide.vue'
 
     export default {
         name: 'OrderPage',
         components: {        
             AppHeader,
-            OrderBreadcrumbs,
+            BreadCrumbs,
             OrderSide,
         }
     }

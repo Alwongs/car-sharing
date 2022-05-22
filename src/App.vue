@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AsidePanel from './components/AsidePanel.vue'
+import AsidePanel from './components/AsidePanel/AsidePanel.vue'
 
 export default {
     name: 'App',

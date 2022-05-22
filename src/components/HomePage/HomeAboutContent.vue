@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import AppBtn from './AppBtn.vue'
+import AppBtn from '../Common/AppBtn.vue'
 
 export default {
     name: 'MainSectionContent',

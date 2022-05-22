@@ -1,28 +1,26 @@
-import apiServices from "../../services/apiServices";
-
 export default {
     getters: {
-        getRates(state) {
-            return state.rates;
+        getExtraServices(state) {
+            return state.extraServices;
         },       
     },
     state: {
-        rates: [],    
+        extraServices: [
+            {
+                id: 1,
+                name: 'Полный бак',
+                price: 500,
+            },
+            {
+                id: 2,
+                name: 'Детское кресло',
+                price: 200,
+            },
+            {
+                id: 3,
+                name: 'Правый руль',
+                price: 600,
+            },
+        ]    
     },
-    mutations: {
-        UPDATE_RATES(state, rates) {
-            state.rates = rates;
-        },    
-    },
-    actions: {
-        get_rates_from_api({commit}) {     
-            apiServices.getRates()
-            .then((response) => {
-                commit('UPDATE_RATES', response.data.data)
-            })
-            .catch(error => {
-                console.error(error)
-            })
-        },     
-    }
 }

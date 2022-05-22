@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from '../views/HomePage'
 import OrderPage from '../views/OrderPage'
-import TabLocation from '../components/OrderTabLocation'
-import TabModel from '../components/OrderTabModel'
-import TabExtra from '../components/OrderTabExtra'
-import TabTotal from '../components/OrderTabTotal'
+import TabLocation from '../components/OrderPage/TabLocation'
+import TabModel from '../components/OrderPage/TabModel'
+import TabExtra from '../components/OrderPage/TabExtra'
+import TabTotal from '../components/OrderPage/TabTotal'
 
 const routes = [
     {

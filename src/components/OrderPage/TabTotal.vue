@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="car-image">
-            <img :src="require('../assets/img/png/car.png')" alt="car-pic">            
+            <img :src="require('@/assets/img/png/car.png')" alt="car-pic">            
         </div>
     </div>
 </template>

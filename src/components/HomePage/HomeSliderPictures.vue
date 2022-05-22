@@ -20,7 +20,7 @@
                 />
             </div>            
             <img 
-                :src="require('../assets/img/jpg/' + slide.img)" 
+                :src="require('@/assets/img/jpg/' + slide.img)" 
                 alt="Slide picture"
             >
         </div>
@@ -29,7 +29,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppBtn from './AppBtn.vue';
+import AppBtn from '../Common/AppBtn.vue';
 
 export default {
   components: { AppBtn },

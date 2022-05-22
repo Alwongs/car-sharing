@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import AppHeader from './AppHeader.vue'
+import AppHeader from '../Common/AppHeader.vue'
 import AboutContent from './HomeAboutContent.vue'
-import AppFooter from './AppFooter.vue'
+import AppFooter from '../Common/AppFooter.vue'
 
 export default {
     name: 'HomeAbout',

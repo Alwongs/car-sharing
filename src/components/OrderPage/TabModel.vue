@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import ModelCard from './OrderTabModelCard.vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import ModelCard from '@/components/OrderPage/TabModelCard.vue';
 
 export default {
-    name: 'OrderTabModel',
+    name: 'TabModel',
     components: { ModelCard },
     data() {
         return {

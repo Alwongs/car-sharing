@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'AsidePanelBtnLang'
+    name: 'LangBtn'
 }
 </script>
 

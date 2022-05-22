@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import SocialMedia from './AsidePanelSocialMedia.vue';
+import SocialMedia from '@/components/AsidePanel/SocialMedia.vue';
 
 export default {
-    name: 'AsidePanelNav',
+    name: 'NavPanel',
     components: { SocialMedia },    
 }
 </script>

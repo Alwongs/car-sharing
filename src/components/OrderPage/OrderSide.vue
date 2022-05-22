@@ -41,6 +41,29 @@
             </li>  
 
             <li 
+                v-if="getOrder.date.range.hours" 
+                class="option-item"
+            >
+                <div class="option-name">
+                    Длительность аренды
+                </div>
+                <div class="option-value date">
+                    <span 
+                        v-if="getOrder.date.range.days" 
+                        class="days"
+                    >
+                        {{ getOrder.date.range.days }}д 
+                    </span>
+                    <span 
+                        v-if="getOrder.date.range.hours" 
+                        class="hours"
+                    >   
+                        {{ getOrder.date.range.hours }}ч
+                    </span>
+                </div>
+            </li>              
+
+            <li 
                 v-if="getOrder.rate.id" 
                 class="option-item"
             >
@@ -51,7 +74,21 @@
                     <span>{{ getOrder.rate.rateTypeId.name }}</span>
                 </div>
             </li>  
-        </ul>
+
+            <li 
+                v-for="item in getOrder.extraServices"
+                :key="item.id"                
+                class="option-item"
+            >
+                <div class="option-name">
+                    {{ item.name }}
+                </div>
+                <div class="option-value">
+                    <span>Да</span>
+                </div>
+            </li>  
+        </ul>                   
+
 
         <div class="price">
             <span>Цена:</span>
@@ -68,7 +105,7 @@
 </template>
 
 <script>
-import AppBtn from './AppBtn.vue'
+import AppBtn from '../Common/AppBtn.vue'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -175,6 +212,13 @@ h3 {
     flex-direction: column;
     white-space: nowrap;
     text-align: right;
+    &.date {
+        display: flex;
+        flex-direction: row;
+        .days {
+            margin-right: 3px;
+        }        
+    }
 }
 .price {
     font-size: 16px;

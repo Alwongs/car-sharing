@@ -36,7 +36,7 @@
 <script>
 
 export default {
-    name: 'OrderSearchLocationInput',
+    name: 'SearchLocationInput',
     props: [ 'text', 'items', 'modelValue', 'placeholder' ],
     emits: ['update:modelValue'],
     data() {
@@ -105,12 +105,11 @@ label {
     position: absolute;
     border: 1px solid $grey_light;
     width: 224px;
-    max-height: 106px;
+    max-height: 300px;
     overflow-y: scroll;
     padding-left: 5px;
     .item {
         font-size: 14px;
-        line-height: 22px;
         color: $grey;
         &:hover {
             color: $green;
@@ -118,7 +117,8 @@ label {
         }
     }
     li {
-        color: $grey;            
+        color: $grey;
+        margin-bottom: 14px;            
     }
 }
 .location-search-input {
@@ -139,7 +139,7 @@ label {
         border: none;
         background: none;
         cursor: pointer;
-        background-image: url('../assets/img/svg/input_close_btn.svg');
+        background-image: url('../../assets/img/svg/input_close_btn.svg');
         background-repeat: no-repeat;            
         background-position: center;
     }  

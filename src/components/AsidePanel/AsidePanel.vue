@@ -1,32 +1,32 @@
 <template>
     <aside>
         <div class="aside-panel"></div>
-        <btn-menu class="aside-btn" />
-        <btn-lang class="aside-btn" />    
+        <menu-btn class="aside-btn" />
+        <lang-btn class="aside-btn" />    
 
         <div 
             :class="{ 'active': isMenuOpened }"
             class="menu-wrap"
         >
             <div class="menu">
-                <aside-panel-nav />
+                <nav-panel />
             </div>
         </div>
     </aside>
 </template>
 
 <script>
-import BtnMenu from './AsidePanelBtnMenu.vue';
-import BtnLang from './AsidePanelBtnLang.vue';
-import AsidePanelNav from './AsidePanelNav.vue';
+import MenuBtn from '@/components/AsidePanel/MenuBtn.vue';
+import LangBtn from '@/components/AsidePanel/LangBtn.vue';
+import NavPanel from '@/components/AsidePanel/NavPanel.vue';
 import { mapGetters } from 'vuex';
 
 export default {
     name: 'LeftSide',
     components: { 
-        BtnMenu,
-        BtnLang,
-        AsidePanelNav,
+        MenuBtn,
+        LangBtn,
+        NavPanel,
     },
     computed: {
         ...mapGetters([

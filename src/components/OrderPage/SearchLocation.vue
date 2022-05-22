@@ -26,10 +26,10 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import LocationInput from './OrderSearchLocationInput.vue';
+import LocationInput from '@/components/OrderPage/SearchLocationInput.vue';
 
 export default {
-    name: 'OrderSearchLocation',
+    name: 'SearchLocation',
     components: { LocationInput },
     data() {
         return {

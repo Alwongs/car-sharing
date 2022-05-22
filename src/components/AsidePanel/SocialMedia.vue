@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: 'AsidePanelSocialMedia'
+    name: 'SocialMedia'
 }
 </script>
 
@@ -22,7 +22,7 @@ export default {
         margin-right: 5px;
     }
     .telegram-icon {
-        background-image: url('../assets/img/svg/telegram.svg');
+        background-image: url('../../assets/img/svg/telegram.svg');
         width: 32px;
         height: 32px;
     }

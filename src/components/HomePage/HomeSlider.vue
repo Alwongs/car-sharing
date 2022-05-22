@@ -117,7 +117,7 @@ export default {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background: url('../assets/img/svg/arrow_prev.svg') no-repeat center;
+    background-image: url('../../assets/img/svg/arrow_prev.svg') no-repeat center;
     &:hover {
         background-color: $bg-slider-button-hover;
     }

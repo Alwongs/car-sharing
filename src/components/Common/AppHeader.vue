@@ -45,7 +45,7 @@ export default {
         color: $grey;
         display: flex;
         align-items: center;
-        background-image: url("../assets/img/svg/map_out.svg");
+        background-image: url("../../assets/img/svg/map_out.svg");
         background-repeat: no-repeat;
         padding-left: 25px;
         height: 20px;

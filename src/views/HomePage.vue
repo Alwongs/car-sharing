@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import MainSection from '../components/HomeAbout.vue'
-import SliderSection from '../components/HomeSlider.vue'
+import MainSection from '@/components/HomePage/HomeAbout.vue'
+import SliderSection from '@/components/HomePage/HomeSlider.vue'
 
 export default {
     name: 'HomePage',
