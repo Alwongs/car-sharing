@@ -2,7 +2,7 @@
     <div class="tab-model">
         <div class="category-group">
             <div 
-                class="category"
+                class="category all-categories"
                 @click="showAllModels"
             >
                 <div 
@@ -108,6 +108,7 @@ export default {
 <style lang="scss" scoped>
 
 .category-group {
+    max-width: 736px;    
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 48px;

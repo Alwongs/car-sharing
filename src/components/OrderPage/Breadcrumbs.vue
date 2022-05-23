@@ -5,7 +5,7 @@
                 class="place" 
                 :class="{ 
                     active: currentRouteName == 'location',
-                    filled: getOrder.point.name 
+                    filled: getPoint.name 
                 }"
                 @click="goTo('location')"
             >
@@ -16,8 +16,8 @@
                 class="model" 
                 :class="{ 
                     active: currentRouteName == 'model',
-                    filled: getOrder.model.name, 
-                    disabled: !getOrder.point.name 
+                    filled: getModel.name, 
+                    disabled: !getPoint.name 
                 }"
                 @click="goTo('model')"
             >
@@ -28,7 +28,8 @@
                 class="additional" 
                 :class="{ 
                     active: currentRouteName == 'extra', 
-                    disabled: !getOrder.model.name 
+                    filled: getRange.days,                     
+                    disabled: !getModel.name 
                 }"               
                 @click="goTo('extra')"
             >
@@ -37,7 +38,10 @@
 
             <li 
                 class="result" 
-                :class="{ active: currentRouteName == 'total' }"
+                :class="{ 
+                    active: currentRouteName == 'total',
+                    disabled: !isTabFilled                     
+                }"
                 @click="goTo('total')"
             >
                 <a href="#">Итого</a>
@@ -54,9 +58,22 @@ export default {
     computed: {
         ...mapGetters([
             'getOrder',
+            'getModel',
+            'getPoint',
+            'getColor',
+            'getDateFrom',
+            'getDateTo',
+            'getRange',
+            'getRate',           
         ]),
         currentRouteName() {
             return this.$route.name;
+        },
+        isTabFilled() {
+            if(this.getColor.id && this.getRange.hours >= 0 && this.getRate.id) {
+                return true;
+            }
+            return false;
         }
     },
     methods: {

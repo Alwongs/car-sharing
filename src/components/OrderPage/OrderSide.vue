@@ -41,7 +41,7 @@
             </li>  
 
             <li 
-                v-if="getOrder.date.range.hours" 
+                v-if="getRange.hours" 
                 class="option-item"
             >
                 <div class="option-name">
@@ -49,16 +49,16 @@
                 </div>
                 <div class="option-value date">
                     <span 
-                        v-if="getOrder.date.range.days" 
+                        v-if="getRange.days" 
                         class="days"
                     >
-                        {{ getOrder.date.range.days }}д 
+                        {{ getRange.days }}д 
                     </span>
                     <span 
-                        v-if="getOrder.date.range.hours" 
+                        v-if="getRange.hours" 
                         class="hours"
                     >   
-                        {{ getOrder.date.range.hours }}ч
+                        {{ getRange.hours }}ч
                     </span>
                 </div>
             </li>              
@@ -119,6 +119,14 @@ export default {
     computed: {
         ...mapGetters([
             'getOrder',
+            'getColors',
+            'getColor',
+            'getDateFrom',
+            'getDateTo',
+            'getRange',
+            'getRate',
+            'extraServices',
+            'getExtraServices',            
             'getIsActiveBtn',
         ]),
         getNextTab() {
@@ -154,8 +162,14 @@ export default {
                     return nextTab;
                 case 'total':
                     nextTab = {
-                        nextRouteName: 'total',
-                        buttonText: 'Итого'
+                        nextRouteName: 'confirm',
+                        buttonText: 'Заказать'
+                    }
+                    return nextTab;
+                case 'confirm':
+                    nextTab = {
+                        nextRouteName: 'confirm',
+                        buttonText: 'Отменить'
                     }
                     return nextTab;
             }

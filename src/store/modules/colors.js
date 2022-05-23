@@ -1,6 +1,6 @@
 export default {
     getters: {
-        getColors(state) {
+        colors(state) {
             return state.colors;
         },       
     },

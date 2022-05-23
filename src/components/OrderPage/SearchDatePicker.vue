@@ -84,8 +84,8 @@ export default {
         selectTime(time) {
             if(this.value && this.value.length == 10) {
                 this.value += ' ' + time;
-                this.$emit('selectData');
                 this.isShown = false;
+                this.$emit('selectData');
             }
         },
         clearData() {

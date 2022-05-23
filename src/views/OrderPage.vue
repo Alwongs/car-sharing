@@ -104,6 +104,8 @@
             width: 100%;
         }  
         .left {
+            flex-basis: 736px;
+            flex-shrink: 1;
             padding-top: 32px; 
         }
         .right {

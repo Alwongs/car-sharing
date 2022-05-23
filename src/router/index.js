@@ -5,6 +5,7 @@ import TabLocation from '../components/OrderPage/TabLocation'
 import TabModel from '../components/OrderPage/TabModel'
 import TabExtra from '../components/OrderPage/TabExtra'
 import TabTotal from '../components/OrderPage/TabTotal'
+import TabConfirm from '../components/OrderPage/TabConfirm'
 
 const routes = [
     {
@@ -36,6 +37,11 @@ const routes = [
                 path: 'total',
                 name: 'total',
                 component: TabTotal
+            },
+            {
+                path: 'confirm',
+                name: 'confirm',
+                component: TabConfirm
             },
         ]
     }

@@ -4,7 +4,7 @@
         <p>Цвет</p>
         <ul class="colors">
             <li 
-                v-for="color in getColors"
+                v-for="color in colors"
                 :key="color.id"
                 :class="{ checked: selectedColorId == color.id }"
                 class="color"
@@ -37,7 +37,7 @@
         <p>Тариф</p>
         <ul class="rates mb-32">
             <li 
-                v-for="rate in getRates"
+                v-for="rate in rates"
                 :key="rate.id" 
                 :class="{ checked: selectedRateId == rate.id }"
                 class="rate mb-8"
@@ -51,9 +51,9 @@
         <p>Доп услуги</p>
         <ul class="services">
             <li 
-                v-for="service in getExtraServices"
+                v-for="service in extraServices"
                 :key="service.id"
-                :class="{ checked: this.$store.getters.getOrder.extraServices.some(item => item.id === service.id)}"
+                :class="{ checked: this.$store.getters.getExtraServices.some(item => item.id === service.id)}"
                 class="service"
                 @click="selectService(service)"
             >
@@ -74,8 +74,8 @@ export default {
     components: {  DatePicker },
     data() {
         return {
-            selectedColorId:  this.$store.getters.getOrder.color.id || null,
-            selectedRateId:  this.$store.getters.getOrder.rate.id || null,
+            selectedColorId:  this.$store.getters.getColor.id || null,
+            selectedRateId:  this.$store.getters.getRate.id || null,
             dateFrom: '',
             dateTo: '',
             range: null
@@ -83,9 +83,15 @@ export default {
     },
     computed: {
         ...mapGetters([
+            'colors',
+            'rates',
             'getOrder',
-            'getColors',
-            'getRates',
+            'getColor',
+            'getDateFrom',
+            'getDateTo',
+            'getRange',
+            'getRate',
+            'extraServices',
             'getExtraServices',
         ]),
     }, 
@@ -115,9 +121,10 @@ export default {
             this.selectedColorId = color.id;
             this.ADD_COLOR_TO_ORDER(color);                
         }, 
+
         saveDateToStore() {
-            this.range = this.getRange(this.dateFrom, this.dateTo); 
-            if(!this.range) {
+            this.range = this.countRange(this.dateFrom, this.dateTo); 
+            if(this.range == 'negative or zero') {
                 alert('Выберите дату окночания аренды позже даты начала аренды!');
                 this.clearDateTo();
                 return
@@ -128,13 +135,14 @@ export default {
                 range: this.range
             });
         }, 
-        getRange(start, end) {
+
+        countRange(start, end) {
             moment.locale('ru');
             const dateFrom = moment(start, 'DD.MM.YYYY HH:mm');
             const dateTo = moment(end, 'DD.MM.YYYY HH:mm');
             let difference = dateTo.diff(dateFrom, 'H');
             if (difference <= 0) {
-                return null;
+                return 'negative or zero';
             }
             return {
                 days: Math.floor(difference / 24),
@@ -167,10 +175,10 @@ export default {
         }, 
         manageBtn() {
             if (
-                this.selectedColorId && 
-                this.selectedRateId &&
-                this.dateFrom &&
-                this.dateTo.length == 16
+                this.getColor.id && 
+                this.getDateFrom &&
+                this.getDateTo &&
+                this.getRate.id
             ) {
                 this.ACTIVATE_BTN();
             } else {

@@ -3,6 +3,36 @@ export default {
         getOrder(state) {
             return state.order;
         },
+        getCity(state) {
+            return state.order.city;
+        },
+        getPoint(state) {
+            return state.order.point;
+        },
+        getModel(state) {
+            return state.order.model;
+        },
+        getColor(state) {
+            return state.order.color;
+        },
+
+        getDateFrom(state) {
+            return state.order.date.dateFrom;
+        },
+        getDateTo(state) {
+            return state.order.date.dateTo;
+        },
+        getRange(state) {
+            return state.order.date.range;
+        },
+
+        getRate(state) {
+            return state.order.rate;
+        },
+        getExtraServices(state) {
+            return state.order.extraServices;
+        },
+
         getIsActiveBtn(state) {
             return state.isActiveBtn;
         }
@@ -13,12 +43,12 @@ export default {
             point: {},
             model: {},
             color: {},
+            rate: {},
             date: {
                 dateFrom: '',
                 dateTo: '',
                 range: {}
             },
-            rate: {},
             extraServices: [],
         },
         isActiveBtn: false,

@@ -1,6 +1,6 @@
 export default {
     getters: {
-        getExtraServices(state) {
+        extraServices(state) {
             return state.extraServices;
         },       
     },

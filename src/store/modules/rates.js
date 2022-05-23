@@ -2,7 +2,7 @@ import apiServices from "../../services/apiServices";
 
 export default {
     getters: {
-        getRates(state) {
+        rates(state) {
             return state.rates;
         },       
     },
