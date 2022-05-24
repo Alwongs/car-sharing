@@ -2,7 +2,7 @@
     <main class="main">
         <h1 class="title">
             <span class="service">
-                Рукоделие
+                Каршеринг
             </span>
             <br> 
             <span class="brand">

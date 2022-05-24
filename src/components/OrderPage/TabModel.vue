@@ -1,5 +1,9 @@
 <template>
     <div class="tab-model">
+        <app-loader 
+            v-if="isLoading" 
+            class="loading"
+        />        
         <div class="category-group">
             <div 
                 class="category all-categories"
@@ -41,11 +45,15 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import AppLoader from '@/components/Common/AppLoader.vue'
 import ModelCard from '@/components/OrderPage/TabModelCard.vue';
 
 export default {
     name: 'TabModel',
-    components: { ModelCard },
+    components: { 
+        AppLoader,
+        ModelCard,  
+    },
     data() {
         return {
             checked: 'all',
@@ -54,6 +62,7 @@ export default {
     },
     computed: {
         ...mapGetters([
+            'isLoading',
             'getOrder',
             'getModels',
             'getCategories'
@@ -106,6 +115,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.tab-model {
+    position: relative;
+}
+.loading {
+    padding-top: 64px;
+    height: 100%;
+}
 
 .category-group {
     max-width: 736px;    

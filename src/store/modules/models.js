@@ -22,7 +22,8 @@ export default {
         },       
     },
     actions: {
-        get_models_from_api({commit, dispatch}, categoryId) {     
+        get_models_from_api({commit, dispatch}, categoryId) { 
+            commit('START_LOADING');
             apiServices.getCars()
             .then((response) => {
                 commit('UPDATE_MODELS', response.data.data)
@@ -32,6 +33,7 @@ export default {
             })
             .finally(() => {
                 dispatch('filter_models_by_category', categoryId)
+                commit('STOP_LOADING')
             })
         },     
         get_categories_from_api({commit}) {     
