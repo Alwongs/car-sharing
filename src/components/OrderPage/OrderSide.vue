@@ -4,39 +4,39 @@
         
         <ul class="option-list">
             <li 
-                v-if="getOrder.city.name" 
+                v-if="getCity.name" 
                 class="option-item"
             >
                 <div class="option-name">
                     Пункт назначения 
                 </div>
                 <div class="option-value">
-                    <span>{{ getOrder.city.name }},</span>
-                    <span>{{ getOrder.point.name }}</span>
+                    <span>{{ getCity.name }},</span>
+                    <span>{{ getPoint.name }}</span>
                 </div>
             </li> 
 
             <li 
-                v-if="getOrder.model.name" 
+                v-if="getModel.name" 
                 class="option-item"
             >
                 <div class="option-name">
                     Модель 
                 </div>
                 <div class="option-value">
-                    <span>{{ getOrder.model.name }}</span>
+                    <span>{{ getModel.name }}</span>
                 </div>
             </li> 
 
             <li 
-                v-if="getOrder.color.id" 
+                v-if="getColor.id" 
                 class="option-item"
             >
                 <div class="option-name">
                     Цвет
                 </div>
                 <div class="option-value">
-                    <span>{{ getOrder.color.name }}</span>
+                    <span>{{ getColor.name }}</span>
                 </div>
             </li>  
 
@@ -64,35 +64,57 @@
             </li>              
 
             <li 
-                v-if="getOrder.rate.id" 
+                v-if="getRate.id" 
                 class="option-item"
             >
                 <div class="option-name">
                     Тариф
                 </div>
                 <div class="option-value">
-                    <span>{{ getOrder.rate.rateTypeId.name }}</span>
+                    <span>{{ getRate.rateTypeId.name }}</span>
                 </div>
             </li>  
 
             <li 
-                v-for="item in getOrder.extraServices"
-                :key="item.id"                
-                class="option-item"
-            >
+                v-if="getIsFullTank.include"
+                class="option-item">
                 <div class="option-name">
-                    {{ item.name }}
+                    {{ getIsFullTank.name }}
                 </div>
                 <div class="option-value">
                     <span>Да</span>
                 </div>
-            </li>  
+            </li>
+            <li 
+                v-if="getIsNeedChildChair.include"
+                class="option-item">
+                <div class="option-name">
+                    {{ getIsNeedChildChair.name }}
+                </div>
+                <div class="option-value">
+                    <span>Да</span>
+                </div>
+            </li> 
+            <li 
+                v-if="getIsRightWheel.include"
+                class="option-item">
+                <div class="option-name">
+                    {{ getIsRightWheel.name }}
+                </div>
+                <div class="option-value">
+                    <span>Да</span>
+                </div>
+            </li> 
         </ul>                   
 
-
-        <div class="price">
-            <span>Цена:</span>
-            от 8000 до 12000 Р
+        <div v-if="getModel.id" class="price">
+            <span>Цена: </span>
+            <span v-if="getTotalPrice === 0">
+                от {{ getModel.priceMin }} до {{ getModel.priceMax }} Р
+            </span>
+            <span v-else>
+                {{ getTotalPrice }} Р
+            </span>           
         </div>
 
         <app-btn 
@@ -106,7 +128,7 @@
 
 <script>
 import AppBtn from '../Common/AppBtn.vue'
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
     name: 'OrderSide',
@@ -118,25 +140,84 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'getOrder',
-            'getColors',
+            'getPriceMin',
+            'getPriceMax',
+            'getCity',
+            'getPoint',
+            'getModel',
             'getColor',
             'getDateFrom',
             'getDateTo',
             'getRange',
             'getRate',
-            'extraServices',
-            'getExtraServices',            
+            'getIsFullTank',
+            'getIsNeedChildChair',
+            'getIsRightWheel',   
             'getIsActiveBtn',
         ]),
         getNextTab() {
             return this.setNextTab(this.$route.name);
+        },
+        getTotalPrice() {
+            return this.countTotalPrice();
         }
     },
     methods: {
+        ...mapMutations([
+            'CLEAR_MODEL_IN_ORDER',
+            'CLEAR_COLOR_IN_ORDER',
+            'CLEAR_DATE_IN_ORDER',
+            'CLEAR_RATE_IN_ORDER',
+            'CLEAR_SERVICES_IN_ORDER',
+        ]),
+        ...mapActions([
+           'get_cities_from_api',
+           'get_points_from_api',
+           'create_order_in_api',
+        ]),                
+        countTotalPrice() {
+            let totalPrice = 0;
+            totalPrice += this.getRate.price || 0;
+
+            if(this.getIsFullTank.include) {
+                totalPrice +=this.getIsFullTank.price;
+            }
+            if(this.getIsNeedChildChair.include) {
+                totalPrice +=this.getIsNeedChildChair.price;
+            }
+            if(this.getIsRightWheel.include) {
+                totalPrice +=this.getIsRightWheel.price;
+            }         
+            return totalPrice;
+        },
         goTo(route) {
             if (this.getIsActiveBtn) {
+                if (route === 'confirm') {
+                    confirm('Уверены?');
+                    // вызываем метод создания заказа..
+                    this.create_order_in_api()
+                }                
                 this.$router.push({name: route});
+            }
+        },
+        servicesAdapter() {
+            const services = this.getExtraServices;
+            let isFullTank = false;
+            let isNeedChildChair = false;
+            let isRightWheel = false;
+            services.map((service) => {
+                if(service.id == 1) {
+                    isFullTank = true;
+                } else if (service.id == 2) {
+                    isNeedChildChair = true;
+                } else if (service.id == 3) {
+                    isRightWheel = true;
+                }
+            });
+            return {
+                isFullTank,
+                isNeedChildChair,
+                isRightWheel                
             }
         },
         setNextTab(currentRouteName) {
@@ -165,7 +246,7 @@ export default {
                         nextRouteName: 'confirm',
                         buttonText: 'Заказать'
                     }
-                    return nextTab;
+                    return nextTab;                    
                 case 'confirm':
                     nextTab = {
                         nextRouteName: 'confirm',
@@ -175,6 +256,20 @@ export default {
             }
         }
     },
+    watch: {
+        getCity() {
+            this.CLEAR_MODEL_IN_ORDER();
+        },
+        getPoint() {
+            this.CLEAR_MODEL_IN_ORDER();            
+        },
+        getModel() {
+            this.CLEAR_COLOR_IN_ORDER();
+            this.CLEAR_DATE_IN_ORDER();
+            this.CLEAR_RATE_IN_ORDER();
+            this.CLEAR_SERVICES_IN_ORDER();
+        }
+    }
 }
 </script>
 
@@ -239,7 +334,7 @@ h3 {
     font-weight: 400;
     color: $black; 
     margin-bottom: 32px; 
-    span {
+    span:first-child {
         font-weight: 500;                
     }                   
 }

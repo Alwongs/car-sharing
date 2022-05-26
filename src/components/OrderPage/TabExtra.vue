@@ -44,22 +44,64 @@
                 @click="selectRate(rate)"
             >
                 <div class="circle"></div>
-                <label>{{ rate.rateTypeId.name }}, {{ rate.price }}Р/{{ rate.rateTypeId.unit }}</label>
+                <label v-if="rate.rateTypeId">
+                    {{ rate.rateTypeId.name }}, 
+                    {{ rate.price }}Р/{{ rate.rateTypeId.unit }}
+                </label>
             </li>
         </ul>
 
         <p>Доп услуги</p>
         <ul class="services">
+<!-- вынести класс в computed -->
+<!-- 
             <li 
                 v-for="service in extraServices"
                 :key="service.id"
-                :class="{ checked: this.$store.getters.getExtraServices.some(item => item.id === service.id)}"
+                :class="{ 
+                    checked: this.$store.getters.getExtraServices.some(item => item.id === service.id)
+                }"
                 class="service"
                 @click="selectService(service)"
             >
                 <div class="checkbox"><div class="tick"></div></div>
                 <label>{{ service.name }}, {{ service.price }}р</label>
             </li>
+-->            
+
+            <li 
+                :class="{ 
+                    checked: this.$store.getters.getIsFullTank.include === true
+                }"
+                class="service"
+                @click="selectService(getIsFullTank.name)"
+            >
+                <div class="checkbox"><div class="tick"></div></div>
+                <label>{{ getIsFullTank.name }}, {{ getIsFullTank.price }}р</label>
+            </li> 
+
+            <li 
+                :class="{ 
+                    checked: this.$store.getters.getIsNeedChildChair.include === true
+                }"
+                class="service"
+                @click="selectService(getIsNeedChildChair.name )"
+            >
+                <div class="checkbox"><div class="tick"></div></div>
+                <label>{{ getIsNeedChildChair.name }}, {{ getIsNeedChildChair.price }}р</label>
+            </li> 
+
+            <li 
+                :class="{ 
+                    checked: this.$store.getters.getIsRightWheel.include === true
+                }"
+                class="service"
+                @click="selectService(getIsRightWheel.name)"
+            >
+                <div class="checkbox"><div class="tick"></div></div>
+                <label>{{ getIsRightWheel.name }}, {{ getIsRightWheel.price }}р</label>
+            </li>            
+
         </ul> 
     </div>
 </template>
@@ -76,8 +118,8 @@ export default {
         return {
             selectedColorId:  this.$store.getters.getColor.id || null,
             selectedRateId:  this.$store.getters.getRate.id || null,
-            dateFrom: '',
-            dateTo: '',
+            dateFrom: this.$store.getters.getDateFrom || '',
+            dateTo: this.$store.getters.getDateTo || '',
             range: null
         }
     },
@@ -85,19 +127,23 @@ export default {
         ...mapGetters([
             'colors',
             'rates',
-            'getOrder',
+            'getIsFullTank',
+            'getIsNeedChildChair',
+            'getIsRightWheel',
+            'getPriceMin',
+            'getPriceMax',
             'getColor',
             'getDateFrom',
             'getDateTo',
             'getRange',
             'getRate',
-            'extraServices',
-            'getExtraServices',
         ]),
     }, 
     created() {
+        if(this.rates.length === 0) {
+            this.get_rates_from_api();
+        }
         this.manageBtn();
-        this.get_rates_from_api()
     }, 
     updated() {
         this.manageBtn();
@@ -108,11 +154,14 @@ export default {
             'DISACTIVATE_BTN',
             'ADD_COLOR_TO_ORDER',
             'ADD_RATE_TO_ORDER',
-            'UPDATE_SERVICES_IN_ORDER',
+            'UPDATE_FULL_TANK',
+            'UPDATE_CHILD_SEAT',
+            'UPDATE_RIGHT_WEEL',
             'ADD_DATE_TO_ORDER',
             'CLEAR_RANGE_IN_ORDER',
             'CLEAR_DATEFROM_IN_ORDER',
             'CLEAR_DATETO_IN_ORDER',
+            'UPDATE_PRICE'
         ]),
         ...mapActions([
             'get_rates_from_api',
@@ -121,7 +170,6 @@ export default {
             this.selectedColorId = color.id;
             this.ADD_COLOR_TO_ORDER(color);                
         }, 
-
         saveDateToStore() {
             this.range = this.countRange(this.dateFrom, this.dateTo); 
             if(this.range == 'negative or zero') {
@@ -135,7 +183,6 @@ export default {
                 range: this.range
             });
         }, 
-
         countRange(start, end) {
             moment.locale('ru');
             const dateFrom = moment(start, 'DD.MM.YYYY HH:mm');
@@ -161,18 +208,18 @@ export default {
         },
         selectRate(rate) {
             this.selectedRateId = rate.id;
-            this.ADD_RATE_TO_ORDER(rate);                
+            this.ADD_RATE_TO_ORDER(rate);                                 
         }, 
-        selectService(service) {
-            let currentServices = this.getOrder.extraServices;
-            if (this.getOrder.extraServices.some(item => item.id === service.id)) {
-                let newArray = currentServices.filter(item => item.id !== service.id);  
-                this.UPDATE_SERVICES_IN_ORDER(newArray);
-            } else {
-                currentServices.push(service);
-                this.UPDATE_SERVICES_IN_ORDER(currentServices)
+        selectService(serviceName) {
+            if(serviceName === 'Полный бак') {
+                this.UPDATE_FULL_TANK();
+            } else if(serviceName === 'Детское кресло') {
+                this.UPDATE_CHILD_SEAT();                
+            } else if(serviceName === 'Правый руль') {
+                this.UPDATE_RIGHT_WEEL();                 
             }
         }, 
+
         manageBtn() {
             if (
                 this.getColor.id && 

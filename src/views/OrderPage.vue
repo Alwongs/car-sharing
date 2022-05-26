@@ -3,7 +3,16 @@
         <app-header class="order-page__header" />
 
         <div class="breadcrumbs-panel">
-            <bread-crumbs class="breadcrumbs" />
+            <bread-crumbs 
+                v-if="this.$route.name !== 'confirm'"
+                class="breadcrumbs" 
+            />
+            <span 
+                v-if="this.$route.name === 'confirm'"
+                class="breadcrumbs order-number"
+            >
+                Заказ номер {{ getCreatedOrder.id }}
+            </span>
         </div>
 
         <div class="main">
@@ -19,6 +28,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import AppHeader from '@/components/Common/AppHeader.vue'
     import BreadCrumbs from '@/components/OrderPage/Breadcrumbs.vue'
     import OrderSide from '@/components/OrderPage/OrderSide.vue'
@@ -29,7 +39,12 @@
             AppHeader,
             BreadCrumbs,
             OrderSide,
-        }
+        },
+        computed: {
+            ...mapGetters([
+                'getCreatedOrder'
+            ]),
+        },           
     }
 </script>
 
@@ -82,8 +97,11 @@
                 width: 100%; 
             }   
         }
+        .order-number {
+            font-size: 14px;
+            font-weight: 700;
+        }
     }
-
     .main {
         flex-grow: 1;
         display: flex;

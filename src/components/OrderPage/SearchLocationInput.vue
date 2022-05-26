@@ -38,7 +38,7 @@
 export default {
     name: 'SearchLocationInput',
     props: [ 'text', 'items', 'modelValue', 'placeholder' ],
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'openList', 'selectItem', 'clearItem'],
     data() {
         return {
             isListOpen: false,
@@ -78,9 +78,7 @@ export default {
 
 .location-search {
     display: flex;
-    font-family: 'Roboto-light';
     font-size: 14px;
-    line-height: 16px;
     color: $black;
     margin-top: 16px;
     @media (max-width: 767px) {

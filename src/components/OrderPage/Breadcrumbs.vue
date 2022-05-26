@@ -57,7 +57,6 @@ export default {
     name: 'Breadcrumbs',
     computed: {
         ...mapGetters([
-            'getOrder',
             'getModel',
             'getPoint',
             'getColor',

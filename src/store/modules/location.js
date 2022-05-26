@@ -2,10 +2,10 @@ import apiServices from "../../services/apiServices";
 
 export default {
     getters: {
-        getCities(state) {
+        cities(state) {
             return state.cities;
         },
-        getPoints(state) {
+        points(state) {
             return state.points;
         },        
     },
@@ -45,6 +45,7 @@ export default {
             .catch(error => {
                 console.error(error)
             })
-        }        
+        },      
     }
 }
+

@@ -2,10 +2,10 @@ import apiServices from "../../services/apiServices";
 
 export default {
     getters: {
-        getModels(state) {
+        models(state) {
             return state.models;
         },      
-        getCategories(state) {
+        categories(state) {
             return state.categories;
         },      
     },
@@ -47,7 +47,7 @@ export default {
         }, 
         filter_models_by_category({getters, commit}, categoryId) {
             if(categoryId) {
-                let newArray = getters.getModels.filter((model) => {
+                let newArray = getters.models.filter((model) => {
                     if(model.categoryId && model.categoryId.id == categoryId) {
                         return model;
                     }

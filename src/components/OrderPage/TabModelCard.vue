@@ -13,7 +13,7 @@
 <script>
 
 export default {
-    name: 'OrderTabModelCard',
+    name: 'TabModelCard',
     props: [ 'model' ]
 }
 </script>

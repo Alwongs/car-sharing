@@ -1,9 +1,15 @@
 <template>
     <order-card 
-        :model="getModel"
-        :services="getExtraServices"
+        v-if="getModel.name"    
+        :name="getModel.name"
+        :number="getModel.number"
+        :isFullTank="getIsFullTank"
+        :isNeedChildChair="getIsNeedChildChair"
+        :isRightWheel="getIsRightWheel"
         :dateFrom="getDateFrom"
+        :imgPath="getModel.thumbnail.path"
     />
+
 </template>
 
 <script>
@@ -17,7 +23,10 @@ export default {
         ...mapGetters([
             'getModel',
             'getDateFrom',
-            'getExtraServices',
+            'getIsFullTank',
+            'getIsNeedChildChair',
+            'getIsRightWheel',
+
         ]),
     },         
 }

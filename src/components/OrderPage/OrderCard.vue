@@ -2,19 +2,40 @@
     <div class="tab-total">     
         <div class="details">
             <div class="model-name mb-8">
-                {{ model.name }}
+                {{ name }}
             </div>
             <div class="model-number mb-8">
-                {{ model.number || 'без номера' }}
+                {{ number || 'без номера' }}
             </div>
 
             <div 
-                v-for="item in services" 
-                :key="item.id"
+                v-if="isFullTank"
                 class="services mb-8"
             >
                 <span class="option">
-                    {{ item.name }}
+                    Полный бак:
+                </span>
+                <span class="value">
+                    Да
+                </span>
+            </div>
+            <div 
+                v-if="isNeedChildChair"
+                class="services mb-8"
+            >
+                <span class="option">
+                    Детское кресло:
+                </span>
+                <span class="value">
+                    Да
+                </span>
+            </div>
+            <div 
+                v-if="isRightWheel"
+                class="services mb-8"
+            >
+                <span class="option">
+                    Правый руль:
                 </span>
                 <span class="value">
                     Да
@@ -32,9 +53,8 @@
         </div>
 
         <div class="car-image">
-            <img 
-                v-if="model.thumbnail"
-                :src="model.thumbnail.path"
+            <img
+                :src="imgPath"
                 alt="car-pic"
             >            
         </div>       
@@ -44,7 +64,15 @@
 <script>
 export default {
     name: 'TotalCard',
-    props: ['model', 'services', 'dateFrom' ]
+    props: [
+        'name', 
+        'number', 
+        'isFullTank', 
+        'isNeedChildChair', 
+        'isRightWheel', 
+        'dateFrom', 
+        'imgPath' 
+    ],
 }
 </script>
 

@@ -6,8 +6,14 @@ import TabModel from '../components/OrderPage/TabModel'
 import TabExtra from '../components/OrderPage/TabExtra'
 import TabTotal from '../components/OrderPage/TabTotal'
 import TabConfirm from '../components/OrderPage/TabConfirm'
+import TestPage from '../views/TestPage'
 
 const routes = [
+    {
+        path: '/test',
+        name: 'test-page',
+        component: TestPage        
+    },
     {
         path: '/',
         name: 'home-page',

@@ -15,12 +15,11 @@
                 ></div>
                 <div class="label">Все модели</div>       
             </div>
-
             <div 
-                v-for="category in getCategories" 
+                v-for="category in categories" 
                 :key="category.id"
                 class="category"
-                @click="showFilteredCars(category.id)"
+                @click="showFilteredModels(category.id)"
             >
                 <div 
                     class="circle"
@@ -29,10 +28,9 @@
                 <div class="label">{{ category.name }}</div>
             </div>
         </div>
-
         <div class="car-group">
             <model-card 
-                v-for="model in getModels"
+                v-for="model in models"
                 :key="model.id"
                 :model="model"
                 :class="{'selected': selectedModelId == model.id}"
@@ -57,15 +55,15 @@ export default {
     data() {
         return {
             checked: 'all',
-            selectedModelId: this.$store.getters.getOrder.model.id || null
+            selectedModelId: this.$store.getters.getModel.id || null
         }
     },
     computed: {
         ...mapGetters([
             'isLoading',
-            'getOrder',
-            'getModels',
-            'getCategories'
+            'getModel',
+            'models',
+            'categories'
         ]),
     },
 
@@ -80,7 +78,8 @@ export default {
         ...mapMutations([
             'ACTIVATE_BTN',
             'DISACTIVATE_BTN',
-            'ADD_MODEL_TO_ORDER'
+            'ADD_MODEL_TO_ORDER',
+            'UPDATE_PRICE'
         ]),
         ...mapActions([
             'get_models_from_api',
@@ -105,11 +104,17 @@ export default {
         selectModel(model) {
             this.selectedModelId = model.id;
             this.ADD_MODEL_TO_ORDER(model);
+            this.UPDATE_PRICE({
+                priceMin: model.priceMin, 
+                priceMax: model.priceMax
+            });
         }
     },
     mounted() {
-        this.get_categories_from_api();
-        this.get_models_from_api();      
+        if (this.models.length === 0) {
+            this.get_categories_from_api();
+            this.get_models_from_api();
+        }      
     },
 }
 </script>

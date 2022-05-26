@@ -1,100 +1,169 @@
+import apiServices from "../../services/apiServices";
+import moment from 'moment'
+
 export default {
     getters: {
-        getOrder(state) {
-            return state.order;
+        getCreatedOrder(state) {
+            return state.createdOrder;
+        },
+        getPriceMin(state) {
+            return state.priceMin;
+        },
+        getPriceMax(state) {
+            return state.priceMax;
         },
         getCity(state) {
-            return state.order.city;
+            return state.city;
         },
         getPoint(state) {
-            return state.order.point;
+            return state.point;
         },
         getModel(state) {
-            return state.order.model;
+            return state.model;
         },
         getColor(state) {
-            return state.order.color;
+            return state.color;
         },
 
         getDateFrom(state) {
-            return state.order.date.dateFrom;
+            return state.date.dateFrom;
         },
         getDateTo(state) {
-            return state.order.date.dateTo;
+            return state.date.dateTo;
         },
         getRange(state) {
-            return state.order.date.range;
+            return state.date.range;
         },
 
         getRate(state) {
-            return state.order.rate;
+            return state.rate;
         },
-        getExtraServices(state) {
-            return state.order.extraServices;
+
+        getIsFullTank(state) {
+            return state.isFullTank;
         },
+        getIsNeedChildChair(state) {
+            return state.isNeedChildChair;
+        },
+        getIsRightWheel(state) {
+            return state.isRightWheel;
+        },
+
 
         getIsActiveBtn(state) {
             return state.isActiveBtn;
         }
     },
     state: {
-        order: {
-            city: {},
-            point: {},
-            model: {},
-            color: {},
-            rate: {},
-            date: {
-                dateFrom: '',
-                dateTo: '',
-                range: {}
-            },
-            extraServices: [],
+        createdOrder: {},
+        priceMin: 0,
+        priceMax: 0,
+        city: {},
+        point: {},
+        model: {},
+        color: {},
+        rate: {},
+        date: {
+            dateFrom: '',
+            dateTo: '',
+            range: {}
         },
+
+        isFullTank: {
+            include: false,
+            name: 'Полный бак',
+            price: 500,
+        },
+        isNeedChildChair: {
+            include: false,
+            name: 'Детское кресло',
+            price: 200,
+        },
+        isRightWheel: {
+            include: false,
+            name: 'Правый руль',
+            price: 600,
+        },
+
         isActiveBtn: false,
     },
     mutations: {
+        UPDATE_FULL_TANK(state) {
+            state.isFullTank.include = !state.isFullTank.include;
+        },
+        UPDATE_CHILD_SEAT(state) {
+            state.isNeedChildChair.include = !state.isNeedChildChair.include;
+        },
+        UPDATE_RIGHT_WEEL(state) {
+            state.isRightWheel.include = !state.isRightWheel.include;
+        },
+
+
+
+        UPDATE_CREATED_ORDER(state, order) {
+            state.createdOrder = order;
+        },
+        UPDATE_PRICE(state, price) {
+            state.priceMin = price.priceMin;
+            state.priceMax = price.priceMax;
+        },
         ADD_CITY_TO_ORDER(state, city) {
-            state.order.city = city;
+            state.city = city;
         },
         ADD_POINT_TO_ORDER(state, point) {
-            state.order.point = point;
+            state.point = point;
         },
         ADD_MODEL_TO_ORDER(state, model) {
-            state.order.model = model;
+            state.model = model;
         },
         ADD_RATE_TO_ORDER(state, rate) {
-            state.order.rate = rate;
+            state.rate = rate;
         },
         ADD_COLOR_TO_ORDER(state, color) {
-            state.order.color = color;
+            state.color = color;
         },
         ADD_DATE_TO_ORDER(state, date) {
-            state.order.date = date;
+            state.date = date;
         },
+        /*
         UPDATE_SERVICES_IN_ORDER(state, extraServices) {
-            state.order.extraServices = extraServices;
+            state.extraServices = extraServices;
         },
-
-        
+        */
         CLEAR_CITY_FROM_ORDER(state) {
-            state.order.city = {};            
+            state.city = {};            
         },
         CLEAR_POINT_FROM_ORDER(state) {
-            state.order.point = {};            
+            state.point = {};            
         },
-
-
+        CLEAR_MODEL_IN_ORDER(state) {
+            state.model = {};            
+        },
+        CLEAR_COLOR_IN_ORDER(state) {
+            state.color = {};            
+        },
+        CLEAR_DATE_IN_ORDER(state) {
+            state.date = {
+                dateFrom: '',
+                dateTo: '',
+                range: {}
+            }            
+        },
         CLEAR_DATEFROM_IN_ORDER(state) {
-            state.order.date.dateFrom = '';            
+            state.date.dateFrom = '';            
         },
         CLEAR_DATETO_IN_ORDER(state) {
-            state.order.date.dateTo = '';            
+            state.date.dateTo = '';            
         },
         CLEAR_RANGE_IN_ORDER(state) {
-            state.order.date.range = {};            
+            state.date.range = {};            
         },
-
+        CLEAR_RATE_IN_ORDER(state) {
+            state.rate = {};            
+        },
+        CLEAR_SERVICES_IN_ORDER(state) {
+            state.extraServices = [];
+        },
         
         ACTIVATE_BTN(state) {
             state.isActiveBtn = true;
@@ -103,4 +172,40 @@ export default {
             state.isActiveBtn = false;
         }
     },
+    actions: {
+        async create_order_in_api({getters, commit}) {
+            commit('START_LOADING');
+            await apiServices.postOrder({
+                orderStatusId: '5e26a191022b590b946c5d89',
+                cityId: getters.getCity.id,
+                pointId: getters.getPoint.id,
+                carId: getters.getModel.id,
+                color: getters.getColor.name,
+                dateFrom: moment(getters.getDateFrom, 'DD.MM.YYYY HH:mm').valueOf(),
+                dateTo: moment(getters.getDateTo, 'DD.MM.YYYY HH:mm').valueOf(),
+                rateId: getters.getRate.id,
+                price: getters.getTotalPrice,
+                isFullTank: true,
+                isNeedChildChair: true,
+                isRightWheel: true,                     
+            })  
+            .then((response) => {
+                console.log(response.data.data)
+                commit('UPDATE_CREATED_ORDER', response.data.data)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+            .finally(() => {
+                commit('STOP_LOADING');
+            })
+        },        
+    }
 }
+
+// idOrder: '628e48374101930017dbe74e'
+/*              
+  isFullTank: this.servicesAdapter().isFullTank,
+isNeedChildChair: this.servicesAdapter().isNeedChildChair,
+isRightWheel: this.servicesAdapter().isRightWheel, 
+*/   
