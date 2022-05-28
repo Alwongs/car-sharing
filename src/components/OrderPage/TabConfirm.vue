@@ -5,15 +5,13 @@
             class="loading"
         />
         <order-card 
-            v-if="getCreatedOrder.carId"
+            v-if="getCreatedOrder && getCreatedOrder.carId"
             :name="getCreatedOrder.carId.name"
             :number="getCreatedOrder.carId.number"
             :services="getCreatedOrder.extraServices"
-
             :isFullTank="getCreatedOrder.isFullTank"
             :isNeedChildChair="getCreatedOrder.isNeedChildChair"
             :isRightWheel="getCreatedOrder.isRightWheel"            
-
             :dateFrom="getDateFrom"
             :imgPath="getCreatedOrder.carId.thumbnail.path"
         />
@@ -43,6 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .tab-confirm {
     position: relative;
 }

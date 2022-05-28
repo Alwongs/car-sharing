@@ -85,43 +85,42 @@ export default {
 
 <style lang="scss" scoped>
 
-    ul li {
-        display: inline;
-        cursor: pointer;
-        &.disabled {
-            pointer-events: none;
-        }
-        @media (max-width: 767px) {
-            display: block; 
-            margin-bottom: 5px;
-        }   
+ul li {
+    display: inline;
+    cursor: pointer;
+    &.disabled {
+        pointer-events: none;
     }
-    a {
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 16px;
-        text-decoration: none;
-        color: $grey;
+    @media (max-width: 767px) {
+        display: block; 
+        margin-bottom: 5px;
+    }   
+}
+a {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration: none;
+    color: $grey;
+}
+.filled a {
+    color: $black;
+}
+.active  a {
+    color: $green;
+}
+.bold a {
+    color: black;
+}
+.place, .model, .additional {
+    :after {
+        display: inline-block;
+        content: '';
+        background-image: url('../../assets/img/svg/breadcrumbs.svg');
+        height: 8px;
+        width: 6px;
+        background-size: contain;
+        margin: 0 16px;
     }
-    .filled a {
-        color: $black;
-    }
-    .active  a {
-        color: $green;
-    }
-    .bold a {
-        color: black;
-    }
-    .place, .model, .additional {
-        :after {
-            display: inline-block;
-            content: '';
-            background-image: url('../../assets/img/svg/breadcrumbs.svg');
-            height: 8px;
-            width: 6px;
-            background-size: contain;
-            margin: 0 16px;
-        }
-    }
-
+}
 </style>

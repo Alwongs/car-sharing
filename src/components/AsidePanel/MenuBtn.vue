@@ -29,11 +29,12 @@ export default {
 .btn-menu {
     top: 32px;
     background-image: url('../../assets/img/svg/menu_btn.svg');
-    @media (max-width: $mobile-max) {
-        background-image: url('../../assets/img/svg/menu_btn_black.svg');
-    } 
     &.opened {
         background-image: url('../../assets/img/svg/menu_close_btn.svg');        
-    }    
+    } 
+    @media (max-width: $mobile-max) {
+        background-image: url('../../assets/img/svg/menu_btn_black.svg');
+        top: 28px;        
+    }   
 }
 </style>

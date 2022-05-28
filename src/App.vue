@@ -3,14 +3,44 @@
         <aside-panel />
         <router-view/>
     </div>
+
+    <order-modal 
+        v-if="isConfirmOpened"
+        @confirmOrder="confirmOrder"
+        @goBack="goBack"
+    /> 
 </template>
 
 <script>
-import AsidePanel from './components/AsidePanel/AsidePanel.vue'
+import { mapGetters, mapMutations, mapActions } from 'vuex';
+import AsidePanel from '@/components/AsidePanel/AsidePanel.vue'
+import OrderModal from '@/components/OrderPage/OrderModal.vue';
 
 export default {
     name: 'App',
-    components: { AsidePanel }
+    components: { AsidePanel, OrderModal },
+    computed: {
+        ...mapGetters([
+            'getCreatedOrder',
+            'isConfirmOpened'
+        ]),
+    }, 
+    methods: {
+        ...mapMutations([
+            'TOGGLE_CONFIRM',
+        ]),        
+        ...mapActions([
+        'create_order_in_api',
+        ]),         
+        async confirmOrder() {
+            await this.create_order_in_api();
+            this.$router.push({name: 'confirm'});   
+            this.TOGGLE_CONFIRM();                     
+        },
+        goBack() {
+            this.TOGGLE_CONFIRM();
+        },
+    }     
 }
 </script>
 

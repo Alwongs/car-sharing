@@ -56,11 +56,11 @@ export default {
     },
     state: {
         createdOrder: {},
-        priceMin: 0,
-        priceMax: 0,
         city: {},
         point: {},
         model: {},
+        priceMin: 0,
+        priceMax: 0,
         color: {},
         rate: {},
         date: {
@@ -68,7 +68,6 @@ export default {
             dateTo: '',
             range: {}
         },
-
         isFullTank: {
             include: false,
             name: 'Полный бак',
@@ -84,21 +83,9 @@ export default {
             name: 'Правый руль',
             price: 600,
         },
-
         isActiveBtn: false,
     },
     mutations: {
-        UPDATE_FULL_TANK(state) {
-            state.isFullTank.include = !state.isFullTank.include;
-        },
-        UPDATE_CHILD_SEAT(state) {
-            state.isNeedChildChair.include = !state.isNeedChildChair.include;
-        },
-        UPDATE_RIGHT_WEEL(state) {
-            state.isRightWheel.include = !state.isRightWheel.include;
-        },
-
-
 
         UPDATE_CREATED_ORDER(state, order) {
             state.createdOrder = order;
@@ -125,11 +112,10 @@ export default {
         ADD_DATE_TO_ORDER(state, date) {
             state.date = date;
         },
-        /*
-        UPDATE_SERVICES_IN_ORDER(state, extraServices) {
-            state.extraServices = extraServices;
+
+        CLEAR_CREATED_ORDER(state) {
+            state.createdOrder = {};
         },
-        */
         CLEAR_CITY_FROM_ORDER(state) {
             state.city = {};            
         },
@@ -137,7 +123,9 @@ export default {
             state.point = {};            
         },
         CLEAR_MODEL_IN_ORDER(state) {
-            state.model = {};            
+            state.model = {}; 
+            state.priceMin = 0;
+            state.priceMax = 0;                        
         },
         CLEAR_COLOR_IN_ORDER(state) {
             state.color = {};            
@@ -161,10 +149,21 @@ export default {
         CLEAR_RATE_IN_ORDER(state) {
             state.rate = {};            
         },
-        CLEAR_SERVICES_IN_ORDER(state) {
-            state.extraServices = [];
+        UPDATE_FULL_TANK(state) {
+            state.isFullTank.include = !state.isFullTank.include;
         },
-        
+        UPDATE_CHILD_SEAT(state) {
+            state.isNeedChildChair.include = !state.isNeedChildChair.include;
+        },
+        UPDATE_RIGHT_WEEL(state) {
+            state.isRightWheel.include = !state.isRightWheel.include;
+        },
+        CLEAR_SERVICES_IN_ORDER(state) {
+            state.isFullTank.include = false;
+            state.isNeedChildChair.include = false;
+            state.isRightWheel.include = false;            
+        },
+
         ACTIVATE_BTN(state) {
             state.isActiveBtn = true;
         },
@@ -185,12 +184,11 @@ export default {
                 dateTo: moment(getters.getDateTo, 'DD.MM.YYYY HH:mm').valueOf(),
                 rateId: getters.getRate.id,
                 price: getters.getTotalPrice,
-                isFullTank: true,
-                isNeedChildChair: true,
-                isRightWheel: true,                     
+                isFullTank: getters.getIsFullTank.include,
+                isNeedChildChair: getters.getIsNeedChildChair.include,
+                isRightWheel: getters.getIsRightWheel.include,                     
             })  
             .then((response) => {
-                console.log(response.data.data)
                 commit('UPDATE_CREATED_ORDER', response.data.data)
             })
             .catch(error => {
@@ -202,10 +200,3 @@ export default {
         },        
     }
 }
-
-// idOrder: '628e48374101930017dbe74e'
-/*              
-  isFullTank: this.servicesAdapter().isFullTank,
-isNeedChildChair: this.servicesAdapter().isNeedChildChair,
-isRightWheel: this.servicesAdapter().isRightWheel, 
-*/   

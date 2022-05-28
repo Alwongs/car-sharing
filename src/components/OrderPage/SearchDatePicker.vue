@@ -16,8 +16,7 @@
                 @click="clearData"  
             ></button> 
         </div>
-
-<!-- dropdown modal -->        
+       
         <div 
             v-if="isShown" 
             class="calendar-block"
@@ -42,8 +41,7 @@
                     {{ time }}
                 </li>
             </ul>
-        </div>
-<!-- /dropdown modal -->         
+        </div>      
     </div>
 </template>
 
@@ -173,9 +171,6 @@ input {
     background-repeat: no-repeat;            
     background-position: center;
 }
-
-
-
 .calendar-block {
     z-index: 1;
     display: flex;

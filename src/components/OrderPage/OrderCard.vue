@@ -62,6 +62,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'TotalCard',
     props: [
@@ -78,59 +79,57 @@ export default {
 
 <style lang="scss" scoped>
 
-    .tab-total {
-        display: flex;
-        justify-content: space-between;       
-        @media (min-width: $tablet-min) and (max-width: $tablet-max) {
-            flex-direction: column;
-        }
-        @media (max-width: $mobile-max) {
-            flex-direction: column;
-        }
+.tab-total {
+    display: flex;
+    justify-content: space-between;       
+    @media (min-width: $tablet-min) and (max-width: $tablet-max) {
+        flex-direction: column;
     }
-
-    .details { 
-        width: 262px;
-        font-size: 14px;
-        color: $black; 
-        .model-name {
-            font-size: 18px;
-        }
-        .model-number {
-            border: 1px solid #999999;
-            border-radius: 4px;
-            text-align: center;
-            padding: 4px 0 4px 0;
-            width: 94px;
-            height: 24px;
-        }         
-        .option {
-            font-weight: 700;             
-            margin-right: 8px; 
-        }
-        .value {
-            font-weight: 300; 
-        }  
-        
-        @media (min-width: $tablet-min) and (max-width: $tablet-max) {
-            flex: none;
-        }
-        @media (max-width: $mobile-max) {
-            flex: none;
-        }  
+    @media (max-width: $mobile-max) {
+        flex-direction: column;
     }
-
-    .car-image {
-        height: 116px;        
-        text-align: right;
-        @media (min-width: $tablet-min) and (max-width: $tablet-max) {
-            flex: none;
-        }
-        @media (max-width: $mobile-max) {
-            flex: none;
-        }
-        img {             
-            height: 100%;
-        }
+}
+.details { 
+    width: 262px;
+    font-size: 14px;
+    color: $black; 
+    .model-name {
+        font-size: 18px;
     }
+    .model-number {
+        border: 1px solid #999999;
+        border-radius: 4px;
+        text-align: center;
+        padding: 4px 0 4px 0;
+        width: 94px;
+        height: 24px;
+    }         
+    .option {
+        font-weight: 700;             
+        margin-right: 8px; 
+    }
+    .value {
+        font-weight: 300; 
+    }  
+    
+    @media (min-width: $tablet-min) and (max-width: $tablet-max) {
+        flex: none;
+    }
+    @media (max-width: $mobile-max) {
+        flex: none;
+    }  
+}
+.car-image {
+    height: 116px;        
+    text-align: right;
+    @media (min-width: $tablet-min) and (max-width: $tablet-max) {
+        flex: none;
+    }
+    @media (max-width: $mobile-max) {
+        flex: none;
+    }
+    img {             
+        height: 100%;
+    }
+}
 </style>

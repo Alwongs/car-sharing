@@ -1,20 +1,21 @@
 <template>
-    <order-card 
-        v-if="getModel.name"    
-        :name="getModel.name"
-        :number="getModel.number"
-        :isFullTank="getIsFullTank"
-        :isNeedChildChair="getIsNeedChildChair"
-        :isRightWheel="getIsRightWheel"
-        :dateFrom="getDateFrom"
-        :imgPath="getModel.thumbnail.path"
-    />
-
+    <div class="tab-total">
+        <order-card 
+            v-if="getModel.name"    
+            :name="getModel.name"
+            :number="getModel.number"
+            :isFullTank="getIsFullTank.include"
+            :isNeedChildChair="getIsNeedChildChair.include"
+            :isRightWheel="getIsRightWheel.include"
+            :dateFrom="getDateFrom"
+            :imgPath="getModel.thumbnail.path"
+        />
+    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import OrderCard from '@/components/OrderPage/OrderCard.vue'
+import OrderCard from '@/components/OrderPage/OrderCard.vue';
 
 export default {
     name: 'OrderTabTotal',
@@ -26,8 +27,7 @@ export default {
             'getIsFullTank',
             'getIsNeedChildChair',
             'getIsRightWheel',
-
         ]),
-    },         
+    },       
 }
 </script>

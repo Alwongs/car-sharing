@@ -59,7 +59,10 @@ export default {
     height: 32px;
     @media (min-width: $tablet-min) and (max-width: $tablet-max) {
         left: 43px;
-    }   
+    } 
+    @media (max-width: $mobile-max) {
+        left: 38px;
+    }      
 }
 .menu-wrap {
     background-color: $bg-menu-wrap;

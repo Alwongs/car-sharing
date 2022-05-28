@@ -127,13 +127,13 @@ p {
 }
 img {
     max-width: 100%;
-    @media (min-width: 1024px) and (max-width: 1439px) {
+    @media (min-width: $desktop-min) and (max-width: $desktop-max) {
         max-width: 100%; 
     }
-    @media (min-width: 768px) and (max-width: 1023px) {
+    @media (min-width: $tablet-min) and (max-width: $tablet-max) {
         max-width: 100%; 
     }
-    @media (max-width: 767px) {
+    @media (max-width: $mobile-max) {
         max-width: 100%; 
     }
 } 

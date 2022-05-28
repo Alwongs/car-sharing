@@ -32,7 +32,7 @@ import { mapGetters } from 'vuex';
 import AppBtn from '../Common/AppBtn.vue';
 
 export default {
-  components: { AppBtn },
+    components: { AppBtn },
     name: 'HomeSliderPictures',
     computed: {
         ...mapGetters([ 

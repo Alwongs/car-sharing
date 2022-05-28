@@ -73,7 +73,6 @@ export default {
         display: none;
     }     
 }
-
 .wrapper-slider {
     height: 100%;
     position: relative;

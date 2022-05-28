@@ -1,19 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from '../views/HomePage'
-import OrderPage from '../views/OrderPage'
-import TabLocation from '../components/OrderPage/TabLocation'
-import TabModel from '../components/OrderPage/TabModel'
-import TabExtra from '../components/OrderPage/TabExtra'
-import TabTotal from '../components/OrderPage/TabTotal'
-import TabConfirm from '../components/OrderPage/TabConfirm'
-import TestPage from '../views/TestPage'
+import HomePage from '../views/HomePage';
+import OrderPage from '../views/OrderPage';
+import TabLocation from '../components/OrderPage/TabLocation';
+import TabModel from '../components/OrderPage/TabModel';
+import TabExtra from '../components/OrderPage/TabExtra';
+import TabTotal from '../components/OrderPage/TabTotal';
+import TabConfirm from '../components/OrderPage/TabConfirm';
 
 const routes = [
-    {
-        path: '/test',
-        name: 'test-page',
-        component: TestPage        
-    },
     {
         path: '/',
         name: 'home-page',

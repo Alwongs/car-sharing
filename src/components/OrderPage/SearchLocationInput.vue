@@ -75,26 +75,25 @@ export default {
 
 <style lang="scss" scoped>
 
-
 .location-search {
     display: flex;
     font-size: 14px;
     color: $black;
     margin-top: 16px;
-    @media (max-width: 767px) {
+    @media (max-width: $mobile-max) {
         flex-direction: column;
     }     
 }
 label {
     margin-right: 5px;
     white-space: nowrap;
-    @media (max-width: 767px) {
+    @media (max-width: $mobile-max) {
         margin: 0 0 5px 0;
     } 
 }
 .city-block {
     margin-bottom: 13px;
-    @media (max-width: 767px) {
+    @media (max-width: $mobile-max) {
         margin-bottom: 20px;
     }  
 }
@@ -141,10 +140,10 @@ label {
         background-repeat: no-repeat;            
         background-position: center;
     }  
-    @media (min-width: 768px) and (max-width: 1023px) {
+    @media (min-width: $tablet-min) and (max-width: $tablet-max) {
         width: 170px;
     }
-    @media (max-width: 767px) {
+    @media (max-width: $mobile-max) {
         min-width: 100%;
     }             
 }

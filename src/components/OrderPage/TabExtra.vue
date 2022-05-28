@@ -1,6 +1,5 @@
 <template>
     <div class="tab-extra">
-
         <p>Цвет</p>
         <ul class="colors">
             <li 
@@ -52,23 +51,7 @@
         </ul>
 
         <p>Доп услуги</p>
-        <ul class="services">
-<!-- вынести класс в computed -->
-<!-- 
-            <li 
-                v-for="service in extraServices"
-                :key="service.id"
-                :class="{ 
-                    checked: this.$store.getters.getExtraServices.some(item => item.id === service.id)
-                }"
-                class="service"
-                @click="selectService(service)"
-            >
-                <div class="checkbox"><div class="tick"></div></div>
-                <label>{{ service.name }}, {{ service.price }}р</label>
-            </li>
--->            
-
+        <ul class="services">         
             <li 
                 :class="{ 
                     checked: this.$store.getters.getIsFullTank.include === true
@@ -219,7 +202,6 @@ export default {
                 this.UPDATE_RIGHT_WEEL();                 
             }
         }, 
-
         manageBtn() {
             if (
                 this.getColor.id && 

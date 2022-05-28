@@ -2,7 +2,10 @@
     <div class="order-side">
         <h3>Ваш заказ:</h3>
         
-        <ul class="option-list">
+        <ul
+            v-if="getCity.name"
+            class="option-list"
+        >
             <li 
                 v-if="getCity.name" 
                 class="option-item"
@@ -118,7 +121,7 @@
         </div>
 
         <app-btn 
-            :class="{ 'active': getIsActiveBtn }"
+            :class="{ 'active': getIsActiveBtn, 'bg-red': $route.name == 'confirm' }"
             :text="getNextTab.buttonText"
             class="order-button" 
             @click="goTo(getNextTab.nextRouteName)"
@@ -154,6 +157,7 @@ export default {
             'getIsNeedChildChair',
             'getIsRightWheel',   
             'getIsActiveBtn',
+            'isConfirmOpened'
         ]),
         getNextTab() {
             return this.setNextTab(this.$route.name);
@@ -164,11 +168,16 @@ export default {
     },
     methods: {
         ...mapMutations([
+            'CLEAR_CREATED_ORDER',
+            'CLEAR_CITY_FROM_ORDER',
+            'CLEAR_POINT_FROM_ORDER',
             'CLEAR_MODEL_IN_ORDER',
+            'CLEAR_PRICE_ORDER',
             'CLEAR_COLOR_IN_ORDER',
             'CLEAR_DATE_IN_ORDER',
             'CLEAR_RATE_IN_ORDER',
             'CLEAR_SERVICES_IN_ORDER',
+            'TOGGLE_CONFIRM',
         ]),
         ...mapActions([
            'get_cities_from_api',
@@ -193,31 +202,16 @@ export default {
         goTo(route) {
             if (this.getIsActiveBtn) {
                 if (route === 'confirm') {
-                    confirm('Уверены?');
-                    // вызываем метод создания заказа..
-                    this.create_order_in_api()
-                }                
-                this.$router.push({name: route});
-            }
-        },
-        servicesAdapter() {
-            const services = this.getExtraServices;
-            let isFullTank = false;
-            let isNeedChildChair = false;
-            let isRightWheel = false;
-            services.map((service) => {
-                if(service.id == 1) {
-                    isFullTank = true;
-                } else if (service.id == 2) {
-                    isNeedChildChair = true;
-                } else if (service.id == 3) {
-                    isRightWheel = true;
-                }
-            });
-            return {
-                isFullTank,
-                isNeedChildChair,
-                isRightWheel                
+                    this.TOGGLE_CONFIRM();
+                    // вызываем метод создания заказа в модальном окне..
+                } else if(this.getNextTab.buttonText === 'Отменить') {
+                    this.CLEAR_CITY_FROM_ORDER();
+                    this.CLEAR_POINT_FROM_ORDER();
+                    this.CLEAR_CREATED_ORDER();
+                    this.$router.push({name: route});                    
+                }  else {
+                    this.$router.push({name: route});
+                }              
             }
         },
         setNextTab(currentRouteName) {
@@ -249,7 +243,7 @@ export default {
                     return nextTab;                    
                 case 'confirm':
                     nextTab = {
-                        nextRouteName: 'confirm',
+                        nextRouteName: 'location',
                         buttonText: 'Отменить'
                     }
                     return nextTab;
@@ -282,6 +276,7 @@ export default {
     @media (max-width: $mobile-max) {
         padding-left: 0;
         width: 100%;
+        min-height: 100%;
     } 
 }
 h3 {
@@ -349,7 +344,17 @@ h3 {
     &.active {
         background: linear-gradient(90deg, $green 2.61%, $green_dark 112.6%);
         background-blend-mode: darken;
-        cursor: pointer;                       
+        cursor: pointer;  
+        &.bg-red {
+            background: linear-gradient(270deg, $red 2.61%, $red_dark 112.6%);            
+        }                     
     }
+    @media (max-width: $mobile-max) {
+        border-radius: 0;
+        position: relative;
+        margin-left: -16px;
+        width: calc(100% + 32px);
+        margin-bottom: 32px;
+    }      
 }
 </style>

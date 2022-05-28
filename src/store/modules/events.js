@@ -1,25 +1,32 @@
 export default {
     getters: {
-        isMenuOpened(state) {
-            return state.isMenuOpened;
-        },
         isLoading(state) {
             return state.isLoading;
         },
+        isMenuOpened(state) {
+            return state.isMenuOpened;
+        },
+        isConfirmOpened(state) {
+            return state.isConfirmOpened;
+        },
     },
     state: {
+        isLoading: false,
         isMenuOpened: false,
-        isLoading: false
+        isConfirmOpened: false,
     },
     mutations: {
-        TOGGLE_MENU(state) {
-            state.isMenuOpened = !state.isMenuOpened;
-        },
         START_LOADING(state) {
             state.isLoading = true;
         },
         STOP_LOADING(state) {
             state.isLoading = false;
-        }
+        },
+        TOGGLE_MENU(state) {
+            state.isMenuOpened = !state.isMenuOpened;
+        },
+        TOGGLE_CONFIRM(state) {
+            state.isConfirmOpened = !state.isConfirmOpened;
+        },
     }
 }

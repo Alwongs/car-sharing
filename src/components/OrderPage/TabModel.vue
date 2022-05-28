@@ -66,14 +66,12 @@ export default {
             'categories'
         ]),
     },
-
     updated() {
         this.manageBtn();
     },
     created() {
         this.manageBtn();
     },
-
     methods: {
         ...mapMutations([
             'ACTIVATE_BTN',
@@ -128,7 +126,6 @@ export default {
     padding-top: 64px;
     height: 100%;
 }
-
 .category-group {
     max-width: 736px;    
     display: flex;
@@ -159,7 +156,6 @@ export default {
         color: $grey;
     }
 }
-
 .car-group{
     display: flex;
     align-content: flex-start;
